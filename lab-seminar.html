@@ -224,6 +224,12 @@
   .scard .go{border-top:1px solid var(--line);padding:13px 18px;color:var(--accent);font-weight:700;font-size:.88rem;text-align:center;transition:.2s;display:block}
   .scard .go:hover{background:var(--soft);color:var(--accent-d)}
   .scard .go.na{color:var(--dim);cursor:default}
+    .sem-sec{margin-bottom:48px}
+  .sem-sec:last-of-type{margin-bottom:0}
+  .sem-h{display:flex;align-items:center;gap:11px;font-weight:800;color:var(--navy);font-size:1.3rem;margin:4px 0 20px}
+  .sem-h::before{content:"";width:6px;height:24px;border-radius:3px;background:var(--accent)}
+  .sem-h.dl::before{background:#2F62B5}.sem-h.ml::before{background:#6B4F9E}.sem-h.tr::before{background:#1C7A6B}
+  .sem-h .c{font-weight:600;font-size:.84rem;color:var(--dim)}
   .sem-empty,.no-result{color:var(--muted);text-align:center;padding:46px 0}
   .no-result{display:none}
   @media(max-width:560px){.scard-grid{grid-template-columns:1fr;gap:14px}}
@@ -269,7 +275,7 @@
       <div class="cnt">전체 <b id="scount">0</b>개 발표</div>
       <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input id="ssearch" type="text" placeholder="제목·발표자 검색 (예: 김호중, RandAugment)" autocomplete="off"></label>
     </div>
-    <div id="seminar" class="scard-grid"></div>
+    <div id="seminar"></div>
     <p class="no-result" id="snores">검색 결과가 없습니다.</p>
   </div>
 </section>
@@ -336,34 +342,47 @@
     var root=document.getElementById('seminar'); if(!root) return;
     var PERSON='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5Zm0 2c-4.4 0-8 2.2-8 5v1h16v-1c0-2.8-3.6-5-8-5Z"/></svg>';
     var CAL='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4.5" width="18" height="16.5" rx="2"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></svg>';
-    var all=[];
-    series.forEach(function(sr){
-      var key=sr.name.indexOf('DL')>=0?'dl':(sr.name.indexOf('ML')>=0?'ml':'tr');
-      var label=key==='dl'?'DL':(key==='ml'?'ML':'연구동향');
-      (sr.items||[]).forEach(function(it){
-        var thumb=it.file?it.file.replace('files/seminars/','images/seminars/').replace(/\.pdf$/i,'.jpg'):'';
-        all.push({title:it.title,who:it.who||'',date:it.date||'',file:it.file||'',thumb:thumb,key:key,label:label});
-      });
-    });
-    all.sort(function(a,b){ return (b.date||'').localeCompare(a.date||''); });
-    document.getElementById('scount').textContent=all.length;
-    if(!all.length){ root.innerHTML='<p class="sem-empty">등록된 세미나 자료가 아직 없습니다.</p>'; return; }
-    all.forEach(function(it){
-      var card=document.createElement('div'); card.className='scard';
-      card.setAttribute('data-key',(it.title+' '+it.who+' '+it.label).toLowerCase());
-      var th='<div class="th"><span class="chip '+it.key+'">'+it.label+'</span>'+(it.thumb?'<img src="'+it.thumb+'" alt="" loading="lazy">':'')+'</div>';
+    var SEC={dl:'DL Seminar',ml:'ML Seminar',tr:'Research Trends Seminar'};
+    var CHIP={dl:'DL',ml:'ML',tr:'연구동향'};
+    function keyOf(n){ return n.indexOf('DL')>=0?'dl':(n.indexOf('ML')>=0?'ml':'tr'); }
+    function cardHTML(it,key){
+      var thumb=it.file?it.file.replace('files/seminars/','images/seminars/').replace(/\.pdf$/i,'.jpg'):'';
+      var th='<div class="th"><span class="chip '+key+'">'+CHIP[key]+'</span>'+(thumb?'<img src="'+thumb+'" alt="" loading="lazy">':'')+'</div>';
       var who=it.who?'<div class="who"><span class="av">'+PERSON+'</span>'+it.who+'</div>':'';
       var dt=it.date?'<div class="dt">'+CAL+it.date+'</div>':'';
       var go=it.file?'<a class="go" href="'+it.file+'" target="_blank" rel="noopener">자료 보기 &#8594;</a>':'<span class="go na">자료 준비중</span>';
-      card.innerHTML=th+'<div class="bd"><div class="ti">'+it.title+'</div>'+who+dt+'</div>'+go;
-      root.appendChild(card);
+      return th+'<div class="bd"><div class="ti">'+it.title+'</div>'+who+dt+'</div>'+go;
+    }
+    var total=0;
+    series.forEach(function(sr){
+      var items=sr.items||[]; if(!items.length) return;
+      var key=keyOf(sr.name);
+      var sec=document.createElement('div'); sec.className='sem-sec';
+      var h=document.createElement('h3'); h.className='sem-h '+key;
+      h.innerHTML=SEC[key]+' <span class="c">'+items.length+'편</span>';
+      sec.appendChild(h);
+      var grid=document.createElement('div'); grid.className='scard-grid';
+      items.forEach(function(it){
+        total++;
+        var card=document.createElement('div'); card.className='scard';
+        card.setAttribute('data-key',(it.title+' '+it.who+' '+SEC[key]+' '+CHIP[key]).toLowerCase());
+        card.innerHTML=cardHTML(it,key);
+        grid.appendChild(card);
+      });
+      sec.appendChild(grid); root.appendChild(sec);
     });
+    document.getElementById('scount').textContent=total;
+    if(!total){ root.innerHTML='<p class="sem-empty">등록된 세미나 자료가 아직 없습니다.</p>'; return; }
     var si=document.getElementById('ssearch'), nores=document.getElementById('snores');
     si.addEventListener('input',function(){
       var q=si.value.trim().toLowerCase(), shown=0;
-      root.querySelectorAll('.scard').forEach(function(c){
-        var ok=!q||c.getAttribute('data-key').indexOf(q)>=0;
-        c.style.display=ok?'':'none'; if(ok) shown++;
+      root.querySelectorAll('.sem-sec').forEach(function(sec){
+        var vis=0;
+        sec.querySelectorAll('.scard').forEach(function(c){
+          var ok=!q||c.getAttribute('data-key').indexOf(q)>=0;
+          c.style.display=ok?'':'none'; if(ok){vis++; shown++;}
+        });
+        sec.style.display=vis?'':'none';
       });
       nores.style.display=shown?'none':'';
     });
