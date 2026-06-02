@@ -295,7 +295,13 @@
      · 자료(PDF)는 files/seminars/ 폴더에 올리세요 (파일명 공백 없이).
      · 시리즈(series)별로 묶고, items 에 발표 항목을 나열하세요.
      · 각 항목: {title:"제목", who:"발표자(생략 가능)", file:"files/seminars/파일.pdf"}  (file 을 ""로 비우면 '자료 준비중') */
-  var series = [
+  // ===== 세미나 자료 =====
+  // 지금은 자료를 비워 "준비 중" 상태로 둔 것입니다 (페이지·메뉴는 그대로 유지).
+  // ▶ 자료를 다시 표시하려면 두 군데만 바꾸면 됩니다:
+  //    (1) 바로 아래 'var series = [];' 줄을 삭제
+  //    (2) 그 아래 'var seriesBackup' 를 'var series' 로 변경
+  var series = [];
+  var seriesBackup = [
     {name:"DL 세미나", items:[
       {title:"Deep Learning Foundations and Concepts — 1주차", who:"김호중", date:"2026.01.23", file:"files/seminars/dl-week01.pdf"},
       {title:"Deep Learning Foundations and Concepts — 2주차", who:"안재국", date:"2026.01.30", file:"files/seminars/dl-week02.pdf"},
@@ -372,7 +378,7 @@
       sec.appendChild(grid); root.appendChild(sec);
     });
     document.getElementById('scount').textContent=total;
-    if(!total){ root.innerHTML='<p class="sem-empty">등록된 세미나 자료가 아직 없습니다.</p>'; return; }
+    if(!total){ root.innerHTML='<div class="sem-empty" style="padding:84px 0">세미나 자료를 준비 중입니다.</div>'; var ab=document.querySelector('.albar'); if(ab){ab.style.display='none';} return; }
     var si=document.getElementById('ssearch'), nores=document.getElementById('snores');
     si.addEventListener('input',function(){
       var q=si.value.trim().toLowerCase(), shown=0;
