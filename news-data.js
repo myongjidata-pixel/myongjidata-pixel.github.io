@@ -48,7 +48,7 @@ window.NEWS = [
       <p class="btnrow"><a class="dlbtn" href="https://bit.ly/3x2lndE" target="_blank" rel="noopener">지원서 다운로드 &rarr;</a></p>
 
       <h3>문의</h3>
-      <p>데이터사이언스 연구실 (<a href="https://datasciencelab.kr" target="_blank" rel="noopener">DataScienceLAB.kr</a>) 또는 <a href="mailto:myongji.data@gmail.com">myongji.data@gmail.com</a></p>
+      <p>데이터사이언스 연구실 (<a href="index.html">DataScienceLAB.kr</a>) 또는 <a href="mailto:myongji.data@gmail.com">myongji.data@gmail.com</a></p>
     `
   },
   {
