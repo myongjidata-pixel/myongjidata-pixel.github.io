@@ -292,7 +292,7 @@
      · 행사(event)별로 묶고, 각 행사의 photos 에 파일 경로를 한 줄씩 나열하세요.
      · 사진이 없는 행사는 화면에 표시되지 않습니다. */
   var albums = [
-    {event:"~2026.07.09 ICML 2026 Seoul COEX", photos:[
+    {event:"2026.07.07~2026.07.09 ICML 2026 Seoul COEX", photos:[
       "images/album/ICML-01.jpg",
       "images/album/ICML-02.jpg",
       "images/album/ICML-03.jpg",
@@ -308,7 +308,7 @@
       "images/album/MIL-02.jpg",
       "images/album/MIL-03.jpg",      
     ]},
-    {event:"~2026.06.26 제주 ICC 정보과학회", photos:[
+    {event:"2026.06.24~2026.06.26 제주 ICC 정보과학회", photos:[
       "images/album/JEJU-01.jpg",
       "images/album/JEJU-02.jpg",
       "images/album/JEJU-03.jpg",
@@ -383,7 +383,7 @@
     lb.querySelector('.prev').addEventListener('click',function(e){ e.stopPropagation(); show(I-1); });
     lb.querySelector('.next').addEventListener('click',function(e){ e.stopPropagation(); show(I+1); });
     document.addEventListener('keydown',function(e){ if(!lb.classList.contains('show')) return; if(e.key==='Escape') close(); else if(e.key==='ArrowLeft') show(I-1); else if(e.key==='ArrowRight') show(I+1); });
-    function parse(ev){ var m=ev.match(/^(\d{4}\.\d{2}\.\d{2})\s+(.*)$/); return m?{date:m[1],name:m[2]}:{date:'',name:ev}; }
+    function parse(ev){ var m = ev.match(/^(\d{4}\.\d{2}\.\d{2}(?:~\d{4}\.\d{2}\.\d{2})?)\s+(.*)$/);return m? { date: m[1], name: m[2] } : { date: "", name: ev };}
     var valid=albums.filter(function(a){ return a.photos&&a.photos.length; });
     document.getElementById('acount').textContent=valid.length;
     if(!valid.length){ root.innerHTML='<p class="album-empty">등록된 사진이 아직 없습니다.</p>'; return; }
