@@ -52,6 +52,24 @@ window.NEWS = [
     `
   },
   {
+    id: "join-parkjunsu-2026",
+    cat: "News",
+    date: "2026.01.19",
+    title: "박준수 학생 학부연구생 합류",
+    badge: "",
+    summary: "DSLAB에 새롭게 참여하게 되었습니다. 진심으로 환영합니다.",
+    body: `<p>박준수 학생이 데이터사이언스 연구실(DSLAB)에 학부연구생으로 새롭게 참여하게 되었습니다. 진심으로 환영합니다.</p>`
+  },
+  {
+    id: "join-kimmujin-2025",
+    cat: "News",
+    date: "2025.10.30",
+    title: "김무진 학생 학부연구생 합류",
+    badge: "",
+    summary: "DSLAB에 새롭게 참여하게 되었습니다. 진심으로 환영합니다.",
+    body: `<p>김무진 학생이 데이터사이언스 연구실(DSLAB)에 학부연구생으로 새롭게 참여하게 되었습니다. 진심으로 환영합니다.</p>`
+  },
+  {
     id: "recruit-2025",
     cat: "News",
     date: "2025.09.15",
