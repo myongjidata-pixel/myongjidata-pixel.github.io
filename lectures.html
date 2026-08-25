@@ -32,7 +32,9 @@
   .brand{display:flex;align-items:center;gap:13px}.brand img{height:38px;width:auto}
   .brand .bt{display:flex;flex-direction:column}
   .bt b{font-weight:800;font-size:1.6rem;letter-spacing:.06em;line-height:1;color:var(--navy);display:block}.brand .bt span{font-size:.63rem;line-height:1;margin-top:1px;color:var(--muted)}
-  .menu{display:flex;gap:26px}
+  .menu{display:flex;align-items:center;gap:26px}
+  .menu>a,.menu>.hassub{display:flex;align-items:center}
+  .menu>a,.menu .hassub>.top{line-height:1.2}
   .menu a{font-weight:600;font-size:.9rem;color:#3a4658;padding:6px 0;transition:.2s}.menu a:hover{color:var(--accent)}
   .menu a.on{color:var(--accent)}
   .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px}.burger span{width:24px;height:2px;background:var(--navy);border-radius:2px}
@@ -239,12 +241,12 @@
       <table class="tbl">
         <thead><tr><th>Course</th><th style="width:120px">Level</th><th style="width:200px">Semester</th><th style="width:150px">Status</th></tr></thead>
         <tbody>
-          <tr><td>데이터마이닝</td><td><span class="lv u">학부</span></td><td>2015~22 · 2024~26</td><td><span class="st on">In progress</span></td></tr>
-          <tr><td>(지능형) 데이터 애널리틱스</td><td><span class="lv u">학부</span></td><td>2017~22 · 2024~25</td><td><span class="st ">Completed</span></td></tr>
+          <tr><td>데이터마이닝</td><td><span class="lv u">학부</span></td><td>2015~22 · 2024~26</td><td><span class="st ">Completed</span></td></tr>
+          <tr><td>(지능형) 데이터 애널리틱스</td><td><span class="lv u">학부</span></td><td>2017~22 · 2024~26</td><td><span class="st on">In progress</span></td></tr>
           <tr><td>정보시스템 분석 및 설계</td><td><span class="lv u">학부</span></td><td>2016~2021</td><td><span class="st ">Completed</span></td></tr>
           <tr><td>머신러닝 (반도체공학과)</td><td><span class="lv u">학부</span></td><td>2025</td><td><span class="st ">Completed</span></td></tr>
-          <tr><td>그래프 머신러닝</td><td><span class="lv g">대학원</span></td><td>2026</td><td><span class="st on">In progress</span></td></tr>
-          <tr><td>인공지능 특론 (생성모델)</td><td><span class="lv g">대학원</span></td><td>2025</td><td><span class="st ">Completed</span></td></tr>
+          <tr><td>그래프 머신러닝</td><td><span class="lv g">대학원</span></td><td>2026</td><td><span class="st ">Completed</span></td></tr>
+          <tr><td>인공지능 특론</td><td><span class="lv g">대학원</span></td><td>2025~26</td><td><span class="st on">In progress</span></td></tr>
           <tr><td>기계학습 · 신경망</td><td><span class="lv g">대학원</span></td><td>2016~2024</td><td><span class="st ">Completed</span></td></tr>
           <tr><td>비정형데이터분석</td><td><span class="lv g">대학원</span></td><td>2016~21 · 2024</td><td><span class="st ">Completed</span></td></tr>
         </tbody>
