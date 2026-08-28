@@ -16,6 +16,24 @@
    ========================================================================= */
 window.NEWS = [
   {
+    id: "award-haksul-2026",
+    cat: "Award",
+    date: "2026.08",
+    title: "김도현 교수, 명지대학교 학술상 수상",
+    badge: "",
+    summary: "김도현 교수가 명지대학교 학술상을 수상하였습니다.",
+    body: `<p>김도현 교수가 명지대학교 <b>학술상</b>을 수상하였습니다.</p>`
+  },
+  {
+    id: "award-idea-2026",
+    cat: "Award",
+    date: "2026.08",
+    title: "명지대학교 IDEA 미니 해커톤 경진대회 최우수상",
+    badge: "",
+    summary: "안재국 학생이 명지대학교 IDEA 미니 해커톤 경진대회에서 최우수상을 수상하였습니다.",
+    body: `<p>안재국 학생이 명지대학교 IDEA 미니 해커톤 경진대회에서 <b>최우수상</b>을 수상하였습니다. 진심으로 축하합니다!</p>`
+  },
+  {
     id: "recruit-2026",
     cat: "News",
     date: "2026.06.02",
@@ -50,6 +68,15 @@ window.NEWS = [
       <h3>문의</h3>
       <p>데이터사이언스 연구실 (<a href="index.html">DataScienceLAB.kr</a>) 또는 <a href="mailto:myongji.data@gmail.com">myongji.data@gmail.com</a></p>
     `
+  },
+  {
+    id: "award-icpbl-2026",
+    cat: "Award",
+    date: "2026.06",
+    title: "AI 분야 IC-PBL+ 경진대회 최우수상",
+    badge: "",
+    summary: "김호중·안재국 학생이 AI 분야 IC-PBL+ 경진대회에서 최우수상을 수상하였습니다.",
+    body: `<p>김호중·안재국 학생이 AI 분야 IC-PBL+ 경진대회에서 <b>최우수상</b>을 수상하였습니다. 진심으로 축하합니다!</p>`
   },
   {
     id: "join-parkjunsu-2026",
