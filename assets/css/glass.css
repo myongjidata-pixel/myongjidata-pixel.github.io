@@ -55,7 +55,7 @@
     radial-gradient(1150px 900px at 100% 4%, #BFD9F8 0%, rgba(191,217,248,0) 58%),
     radial-gradient(1000px 900px at 88% 100%, #CEE1F8 0%, rgba(206,225,248,0) 60%),
     radial-gradient(860px 700px at -8% 90%, #E9EFF8 0%, rgba(233,239,248,0) 64%),
-    linear-gradient(178deg, #F7FBFF 0%, #EAF1FB 50%, #F3F8FE 100%);
+    linear-gradient(178deg, #F9FCFF 0%, #F0F6FE 28%, #E8F0FB 72%, #F5FAFF 100%);
 }
 
 html[data-theme="dark"]{
