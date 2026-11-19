@@ -108,6 +108,15 @@ body{
   position: relative;
 }
 
+/* short pages: keep the footer at the bottom of the screen so the dark band
+   never floats above a strip of bare backdrop (404 keeps its own grid) */
+body:not(.page-404){
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+body:not(.page-404) > footer{ margin-top: auto; }
+
 /* soft light orbs that sit behind everything and drift very slowly */
 body::before{
   content:"";
