@@ -3,98 +3,113 @@
    --------------------------------------------------------------------------
    Loaded on every page right after site-ui.css, i.e. after the page's own
    <style> blocks, so this one file restyles all pages:
-     · ambient mesh / aurora backdrop (light: ice blue · silver · white,
-       dark: deep navy · midnight blue)
+     · clean canvas (light: bright white / cool grey, dark: deep midnight navy)
+     · clear glass surfaces: a crisp specular rim on the top/left edge, a faint
+       contour outside it, and a soft ambient shadow underneath
+     · the lab's signature navy stays saturated on the bands that carry it
+       (top bar, stats, table heads, page heroes, footer)
      · translucent glass surfaces: header & floating nav pill, dropdowns,
        hero news panel, cards, tables, timeline, chips, buttons, inputs,
        lightbox, footer
-     · KR | EN and theme controls keep working unchanged
    Colours are still driven by the pages' custom properties: --card, --soft,
-   --soft2, --line and --glass are re-pointed at translucent values below, so
-   any rule written against those variables becomes glass automatically.
+   --soft2, --line and --glass are re-pointed at glass values below, so any
+   rule written against those variables becomes glass automatically.
    ========================================================================== */
 
 /* ---------- 1. tokens ---------------------------------------------------- */
 :root{
   /* glass system */
-  --lg-blur: 26px;
-  --lg-sat: 182%;
-  --lg-fill:        rgba(255,255,255,.38);
-  --lg-fill-2:      rgba(255,255,255,.18);
-  --lg-fill-3:      rgba(255,255,255,.12);
-  --lg-fill-strong: rgba(255,255,255,.56);
-  --lg-edge:        rgba(255,255,255,.60);   /* specular rim */
-  --lg-hair:        rgba(19,41,75,.09);      /* outer hairline */
-  --lg-ink-line:    rgba(19,41,75,.16);
-  --lg-dot:         #F7FAFF;                 /* opaque timeline dot over the rule */
-  --lg-sheen: linear-gradient(180deg, rgba(255,255,255,.30) 0%, rgba(255,255,255,.03) 46%, rgba(255,255,255,0) 100%);
-  --lg-inner: inset 0 1px 0 rgba(255,255,255,.80),
-              inset 0 -1px 0 rgba(255,255,255,.22);
-  --lg-shadow:      0 1px 2px rgba(19,41,75,.05),
-                    0 16px 36px -18px rgba(19,41,75,.30);
-  --lg-shadow-lg:   0 2px 6px rgba(19,41,75,.07),
-                    0 30px 60px -24px rgba(19,41,75,.36);
+  --lg-blur: 28px;
+  --lg-sat: 172%;
+  --lg-fill:        rgba(255,255,255,.58);
+  --lg-fill-2:      rgba(255,255,255,.42);
+  --lg-fill-3:      rgba(255,255,255,.26);
+  --lg-fill-strong: rgba(255,255,255,.82);
+  --lg-edge:        rgba(255,255,255,.94);   /* specular rim */
+  --lg-hair:        rgba(19,41,75,.10);      /* outer hairline */
+  --lg-ink-line:    rgba(19,41,75,.13);
+  --lg-dot:         #FFFFFF;                 /* opaque timeline dot over the rule */
+  --lg-sheen: linear-gradient(180deg, rgba(255,255,255,.55) 0%, rgba(255,255,255,.14) 42%, rgba(255,255,255,0) 100%);
+  /* rim light: bright 1px reflection on the top and left, a soft fall on the
+     bottom edge — this is what makes the panel read as a pane of glass */
+  --lg-inner: inset 0 1px 0 rgba(255,255,255,.98),
+              inset 1px 0 0 rgba(255,255,255,.62),
+              inset -1px 0 0 rgba(255,255,255,.30),
+              inset 0 -1px 0 rgba(19,41,75,.055);
+  --lg-contour: 0 0 0 1px rgba(19,41,75,.055);
+  --lg-shadow:      var(--lg-contour),
+                    0 1px 2px rgba(19,41,75,.05),
+                    0 16px 34px -20px rgba(19,41,75,.28);
+  --lg-shadow-lg:   var(--lg-contour),
+                    0 2px 6px rgba(19,41,75,.06),
+                    0 30px 60px -26px rgba(19,41,75,.32);
   --lg-focus: 0 0 0 3px rgba(47,98,181,.22);
 
   /* deep glass (navy bands: top bar, stats, footer, table heads) */
-  --lg-deep: linear-gradient(150deg, rgba(19,41,75,.90) 0%, rgba(24,50,92,.86) 58%, rgba(15,33,61,.92) 100%);
-  --lg-deep-soft: linear-gradient(150deg, rgba(23,48,88,.86) 0%, rgba(19,41,75,.90) 100%);
+  --lg-deep: linear-gradient(150deg, #1B3F72 0%, #13294B 52%, #0E2140 100%);
+  --lg-deep-soft: linear-gradient(150deg, #16345F 0%, #102542 100%);
 
   /* re-point the pages' palette at glass */
-  --card: rgba(255,255,255,.38);
-  --soft: rgba(255,255,255,.14);
-  --soft2: rgba(255,255,255,.24);
-  --line: rgba(19,41,75,.12);
-  --line-strong: rgba(19,41,75,.20);
-  --glass: rgba(255,255,255,.46);
-  --cream: rgba(255,255,255,.20);
+  --card: rgba(255,255,255,.58);
+  --soft: rgba(255,255,255,.34);
+  --soft2: rgba(255,255,255,.50);
+  --line: rgba(19,41,75,.11);
+  --line-strong: rgba(19,41,75,.19);
+  --glass: rgba(255,255,255,.72);
+  --cream: rgba(255,255,255,.30);
   --dim: #6E7A8A;            /* small captions: lifted for readability */
 
-  /* ambient backdrop */
+  /* ambient canvas: bright white with the faintest cool cast. The colour is
+     carried by the content (navy ink, blue accents), never by the backdrop,
+     so nothing reads as a pastel wash. */
   --lg-sky:
-    radial-gradient(1200px 820px at 2% -20%, #FFFFFF 0%, rgba(255,255,255,0) 56%),
-    radial-gradient(1150px 900px at 100% 4%, #BFD9F8 0%, rgba(191,217,248,0) 58%),
-    radial-gradient(1000px 900px at 88% 100%, #CEE1F8 0%, rgba(206,225,248,0) 60%),
-    radial-gradient(860px 700px at -8% 90%, #E9EFF8 0%, rgba(233,239,248,0) 64%),
-    linear-gradient(178deg, #F9FCFF 0%, #F0F6FE 28%, #E8F0FB 72%, #F5FAFF 100%);
+    radial-gradient(1200px 780px at 4% -14%, #FFFFFF 0%, rgba(255,255,255,0) 58%),
+    radial-gradient(1000px 760px at 98% -6%, rgba(203,220,242,.55) 0%, rgba(203,220,242,0) 60%),
+    radial-gradient(1100px 820px at 88% 104%, rgba(212,226,244,.42) 0%, rgba(212,226,244,0) 62%),
+    linear-gradient(180deg, #FCFDFF 0%, #F5F8FC 42%, #EFF3F9 100%);
 }
 
 html[data-theme="dark"]{
-  --lg-fill:        rgba(24,35,51,.42);
-  --lg-fill-2:      rgba(255,255,255,.04);
+  --lg-fill:        rgba(18,31,50,.60);
+  --lg-fill-2:      rgba(255,255,255,.045);
   --lg-fill-3:      rgba(255,255,255,.028);
-  --lg-fill-strong: rgba(26,38,56,.62);
+  --lg-fill-strong: rgba(21,36,58,.86);
   --lg-edge:        rgba(255,255,255,.15);
-  --lg-hair:        rgba(255,255,255,.09);
-  --lg-ink-line:    rgba(255,255,255,.14);
-  --lg-dot:         #101926;
-  --lg-sheen: linear-gradient(180deg, rgba(255,255,255,.08) 0%, rgba(255,255,255,.02) 48%, rgba(255,255,255,0) 100%);
-  --lg-inner: inset 0 1px 0 rgba(255,255,255,.10),
-              inset 0 -1px 0 rgba(0,0,0,.26);
-  --lg-shadow:      0 1px 2px rgba(0,0,0,.40),
-                    0 18px 40px -20px rgba(0,0,0,.75);
-  --lg-shadow-lg:   0 2px 8px rgba(0,0,0,.45),
+  --lg-hair:        rgba(255,255,255,.08);
+  --lg-ink-line:    rgba(255,255,255,.13);
+  --lg-dot:         #0D1526;
+  --lg-sheen: linear-gradient(180deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,.025) 46%, rgba(255,255,255,0) 100%);
+  --lg-inner: inset 0 1px 0 rgba(255,255,255,.13),
+              inset 1px 0 0 rgba(255,255,255,.055),
+              inset 0 -1px 0 rgba(0,0,0,.40);
+  --lg-contour: 0 0 0 1px rgba(0,0,0,.45);
+  --lg-shadow:      var(--lg-contour),
+                    0 1px 2px rgba(0,0,0,.40),
+                    0 18px 40px -20px rgba(0,0,0,.70);
+  --lg-shadow-lg:   var(--lg-contour),
+                    0 2px 8px rgba(0,0,0,.45),
                     0 34px 70px -26px rgba(0,0,0,.85);
   --lg-focus: 0 0 0 3px rgba(116,166,240,.32);
 
-  --lg-deep: linear-gradient(150deg, rgba(12,24,42,.92) 0%, rgba(16,32,56,.88) 58%, rgba(8,17,31,.94) 100%);
-  --lg-deep-soft: linear-gradient(150deg, rgba(15,29,50,.88) 0%, rgba(10,19,32,.92) 100%);
+  --lg-deep: linear-gradient(150deg, #12294B 0%, #0E2038 52%, #0A1729 100%);
+  --lg-deep-soft: linear-gradient(150deg, #0F2544 0%, #0A1828 100%);
 
-  --card: rgba(24,35,51,.42);
+  --card: rgba(18,31,50,.60);
   --soft: rgba(255,255,255,.045);
-  --soft2: rgba(255,255,255,.06);
+  --soft2: rgba(255,255,255,.07);
   --line: rgba(255,255,255,.11);
   --line-strong: rgba(255,255,255,.20);
-  --glass: rgba(14,23,37,.54);
-  --cream: rgba(255,255,255,.045);
-  --dim: #8B99AB;
+  --glass: rgba(13,22,36,.72);
+  --cream: rgba(255,255,255,.05);
+  --dim: #93A3B8;
 
+  /* deep, saturated midnight navy rather than a flat near-black */
   --lg-sky:
-    radial-gradient(1200px 760px at 10% -16%, #1D3A66 0%, rgba(29,58,102,0) 62%),
-    radial-gradient(1000px 720px at 94% -4%, #16294A 0%, rgba(22,41,74,0) 60%),
-    radial-gradient(900px 900px at 78% 106%, #14294B 0%, rgba(20,41,75,0) 62%),
-    radial-gradient(720px 600px at 2% 88%, #12213A 0%, rgba(18,33,58,0) 66%),
-    linear-gradient(178deg, #0A1019 0%, #0B1421 46%, #080D16 100%);
+    radial-gradient(1100px 760px at 6% -16%, #16345F 0%, rgba(22,52,95,0) 62%),
+    radial-gradient(980px 720px at 96% -8%, #122A4C 0%, rgba(18,42,76,0) 60%),
+    radial-gradient(900px 880px at 80% 106%, #10243F 0%, rgba(16,36,63,0) 62%),
+    radial-gradient(760px 620px at 0% 88%, #0D1E35 0%, rgba(13,30,53,0) 66%),
+    linear-gradient(178deg, #0A1322 0%, #0A1526 46%, #070D19 100%);
 }
 
 /* ---------- 2. ambient backdrop ------------------------------------------ */
@@ -106,7 +121,7 @@ html{
 html[data-theme="dark"]{background: var(--lg-sky); background-attachment: fixed;}
 
 body{
-  background: transparent !important;   /* let the mesh through every page */
+  background: transparent !important;   /* let the canvas through every page */
   position: relative;
 }
 
@@ -119,7 +134,8 @@ body:not(.page-404){
 }
 body:not(.page-404) > footer{ margin-top: auto; }
 
-/* soft light orbs that sit behind everything and drift very slowly */
+/* two very soft light pools behind everything: enough to keep the white canvas
+   from looking flat, far too faint to tint it */
 body::before{
   content:"";
   position: fixed;
@@ -127,28 +143,28 @@ body::before{
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(38vmax 30vmax at 16% 12%, rgba(255,255,255,.95) 0%, rgba(255,255,255,0) 60%),
-    radial-gradient(34vmax 30vmax at 84% 24%, rgba(150,192,246,.55) 0%, rgba(150,192,246,0) 62%),
-    radial-gradient(38vmax 34vmax at 58% 94%, rgba(176,206,245,.48) 0%, rgba(176,206,245,0) 64%);
+    radial-gradient(38vmax 30vmax at 16% 12%, rgba(255,255,255,.85) 0%, rgba(255,255,255,0) 62%),
+    radial-gradient(32vmax 28vmax at 84% 24%, rgba(196,215,240,.42) 0%, rgba(196,215,240,0) 64%),
+    radial-gradient(36vmax 32vmax at 58% 94%, rgba(206,222,242,.34) 0%, rgba(206,222,242,0) 66%);
   filter: blur(18px);
   animation: lg-drift 46s ease-in-out infinite alternate;
 }
 html[data-theme="dark"] body::before{
   background:
-    radial-gradient(40vmax 32vmax at 16% 12%, rgba(56,104,180,.38) 0%, rgba(56,104,180,0) 62%),
-    radial-gradient(36vmax 30vmax at 84% 22%, rgba(38,74,136,.36) 0%, rgba(38,74,136,0) 64%),
-    radial-gradient(40vmax 36vmax at 58% 94%, rgba(28,58,108,.42) 0%, rgba(28,58,108,0) 66%);
+    radial-gradient(40vmax 32vmax at 16% 12%, rgba(48,92,166,.34) 0%, rgba(48,92,166,0) 62%),
+    radial-gradient(36vmax 30vmax at 84% 22%, rgba(34,68,128,.32) 0%, rgba(34,68,128,0) 64%),
+    radial-gradient(40vmax 36vmax at 58% 94%, rgba(24,52,100,.38) 0%, rgba(24,52,100,0) 66%);
   filter: blur(26px);
 }
 
-/* very fine frost grain over the backdrop (not over the content) */
+/* very fine frost grain over the canvas (not over the content) */
 body::after{
   content:"";
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  opacity:.28;
+  opacity:.20;
   mix-blend-mode: soft-light;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)' opacity='.42'/%3E%3C/svg%3E");
 }
@@ -160,15 +176,16 @@ body::after{
 }
 
 /* ---------- 3. band sections --------------------------------------------- */
-/* the flat white / grey bands become veils over the mesh */
+/* the flat white / grey bands become the barest veil over the canvas: they
+   only mark the change of section, they never tint it */
 .research, .pubs, .honors,
 section.research, section.pubs, section.honors{
   background:
-    linear-gradient(180deg, rgba(255,255,255,.34) 0%, rgba(255,255,255,.06) 52%, rgba(255,255,255,.24) 100%);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.55),
-              inset 0 -1px 0 rgba(255,255,255,.40);
-  -webkit-backdrop-filter: blur(8px) saturate(140%);
-  backdrop-filter: blur(8px) saturate(140%);
+    linear-gradient(180deg, rgba(255,255,255,.62) 0%, rgba(255,255,255,.22) 52%, rgba(255,255,255,.52) 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.95),
+              inset 0 -1px 0 rgba(19,41,75,.045);
+  -webkit-backdrop-filter: blur(10px) saturate(130%);
+  backdrop-filter: blur(10px) saturate(130%);
 }
 html[data-theme="dark"] .research,
 html[data-theme="dark"] .pubs,
@@ -178,15 +195,16 @@ html[data-theme="dark"] section.pubs,
 html[data-theme="dark"] section.honors{
   background:
     linear-gradient(180deg, rgba(255,255,255,.035) 0%, rgba(255,255,255,.012) 52%, rgba(255,255,255,.03) 100%);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.05),
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06),
               inset 0 -1px 0 rgba(255,255,255,.03);
 }
 
 /* ---------- 4. glass surface system -------------------------------------- */
-/* cards, panels, list boxes, tables, reading surface */
+/* cards, panels, list boxes, reading surface.
+   .tbl is handled on its own in §10 because its header is a solid navy band. */
 .rcard, .pjc, .ncard, .scard, .acard, .plist, .rfig, .prof,
 .hubcard, .ri .r, .svc .s, .tlcard, .alumni, .ndetail,
-.mwrap .mc, .search input, .tbl, .atbl, .map{
+.mwrap .mc, .search input, .atbl, .map{
   background-color: var(--lg-fill);
   background-image: var(--lg-sheen);
   -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(var(--lg-sat));
@@ -233,28 +251,31 @@ html[data-theme="dark"] section.honors{
 /* ---------- 5. hover / active states (page rules win on specificity) ----- */
 .hubcard:hover{
   background-color: var(--lg-fill-strong);
-  border-color: var(--lg-edge);
+  border-color: rgba(255,255,255,.98);
   box-shadow: var(--lg-inner), var(--lg-shadow-lg);
 }
 .rcard:hover, .pjc:hover, .ncard:hover, .scard:hover, .acard:hover{
-  border-color: rgba(47,98,181,.38);
-  box-shadow: var(--lg-inner), var(--lg-shadow-lg);
+  border-color: rgba(255,255,255,1);
+  box-shadow: var(--lg-inner), var(--lg-shadow-lg), 0 0 0 1px rgba(47,98,181,.26);
 }
 html[data-theme="dark"] .rcard:hover,
 html[data-theme="dark"] .pjc:hover,
 html[data-theme="dark"] .ncard:hover,
 html[data-theme="dark"] .scard:hover,
-html[data-theme="dark"] .acard:hover{ border-color: rgba(116,166,240,.40); }
+html[data-theme="dark"] .acard:hover{
+  border-color: rgba(255,255,255,.20);
+  box-shadow: var(--lg-inner), var(--lg-shadow-lg), 0 0 0 1px rgba(116,166,240,.34);
+}
 
 .mwrap .mc:hover{
   background-color: var(--lg-fill-strong);
-  border-color: rgba(47,98,181,.34);
-  box-shadow: var(--lg-inner), var(--lg-shadow-lg);
+  border-color: rgba(255,255,255,.98);
+  box-shadow: var(--lg-inner), var(--lg-shadow-lg), 0 0 0 1px rgba(47,98,181,.22);
 }
 /* hover must not touch the avatar's background: .mc .ph carries the lab mark as
    a background-image, and any `background` shorthand here wipes it out */
 .mwrap .mc:hover .ph{
-  box-shadow: 0 0 0 3px rgba(47,98,181,.20), inset 0 1px 0 rgba(255,255,255,.55);
+  box-shadow: 0 0 0 3px rgba(47,98,181,.20), inset 0 1px 0 rgba(255,255,255,.75);
 }
 html[data-theme="dark"] .mwrap .mc:hover .ph{
   box-shadow: 0 0 0 3px rgba(116,166,240,.24), inset 0 1px 0 rgba(255,255,255,.10);
@@ -264,8 +285,8 @@ html[data-theme="dark"] .mwrap .mc:hover .ph{
 .mc .ph, .prof .ph, .pcard .ph, .scard .th, .tlcard .av,
 #activity-preview .amedia, .acard .cv{
   background-color: var(--soft2);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.55),
-              inset 0 0 0 1px rgba(255,255,255,.30);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.85),
+              inset 0 0 0 1px rgba(255,255,255,.55);
 }
 html[data-theme="dark"] .mc .ph,
 html[data-theme="dark"] .prof .ph,
@@ -280,13 +301,14 @@ html[data-theme="dark"] .acard .cv{
 
 /* chart / diagram panels inside research cards */
 .rcard .fig, .rfig{
-  background-color: rgba(255,255,255,.34);
+  background-color: rgba(255,255,255,.56);
   background-image: var(--lg-sheen);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.75);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.95),
+              inset 0 0 0 1px rgba(255,255,255,.45);
 }
 html[data-theme="dark"] .rcard .fig,
 html[data-theme="dark"] .rfig{
-  background-color: rgba(255,255,255,.04);
+  background-color: rgba(255,255,255,.045);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.07);
 }
 
@@ -295,13 +317,46 @@ html[data-theme="dark"] .rfig{
 .scard .chip, .pjc .live, .ncard .nt .badge, .acard .pill, .hubcard .ic,
 .search input, .btn, .tlbtn{ border-radius: 999px; }
 
-.lv.u, .atbl .deg, .agrp span{ box-shadow: inset 0 1px 0 rgba(255,255,255,.75); }
-.lv.g{ box-shadow: inset 0 1px 0 rgba(255,255,255,.75); }
+/* level / degree chips: solid tint, a hairline of their own colour and a
+   legible ink (a white inner glow over a pale tint washed them out) */
+.lv{
+  display: inline-block;
+  padding: 4px 12px;
+  line-height: 1.55;
+  font-weight: 700;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+.lv.u{
+  background: #E3ECFB;
+  color: #1D4A8C;
+  border-color: rgba(47,98,181,.20);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.90);
+}
+.lv.g{
+  background: #EDE8F8;
+  color: #59408C;
+  border-color: rgba(107,79,158,.20);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.90);
+}
+html[data-theme="dark"] .lv.u{
+  background: rgba(116,166,240,.16);
+  color: #B5CFF7;
+  border-color: rgba(116,166,240,.30);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.10);
+}
+html[data-theme="dark"] .lv.g{
+  background: rgba(160,132,232,.16);
+  color: #CFBDF2;
+  border-color: rgba(160,132,232,.30);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.10);
+}
+.atbl .deg, .agrp span{ box-shadow: inset 0 1px 0 rgba(255,255,255,.90); }
 
 .prof .edu span, .pcard .edu span{
-  background-color: rgba(255,255,255,.40);
-  border: 1px solid var(--lg-edge);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.85);
+  background-color: rgba(255,255,255,.72);
+  border: 1px solid rgba(19,41,75,.10);
+  box-shadow: inset 0 1px 0 #fff;
   color: var(--ink3);
 }
 html[data-theme="dark"] .prof .edu span,
@@ -313,40 +368,41 @@ html[data-theme="dark"] .pcard .edu span{
 }
 
 .hubcard .ic{
-  background: linear-gradient(160deg, rgba(255,255,255,.62), rgba(233,240,251,.40));
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.95), 0 6px 16px -10px rgba(47,98,181,.55);
+  background: linear-gradient(160deg, #FFFFFF 0%, #E7EFFB 100%);
+  box-shadow: inset 0 1px 0 #fff, 0 0 0 1px rgba(47,98,181,.10), 0 8px 18px -12px rgba(47,98,181,.55);
 }
 html[data-theme="dark"] .hubcard .ic{
   background: linear-gradient(160deg, rgba(116,166,240,.20), rgba(116,166,240,.08));
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.10);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.10), 0 0 0 1px rgba(255,255,255,.06);
 }
 
 /* glass chips sitting on photos */
 .acard .pill, .scard .chip{
   -webkit-backdrop-filter: blur(14px) saturate(180%);
   backdrop-filter: blur(14px) saturate(180%);
-  box-shadow: 0 6px 18px -10px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.45);
+  box-shadow: 0 6px 18px -10px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.65);
 }
-.acard .pill{ background: rgba(255,255,255,.62); color: var(--navy); }
+.acard .pill{ background: rgba(255,255,255,.86); color: var(--navy); }
 
 /* ---------- 8. buttons --------------------------------------------------- */
 .btn{
   border-radius: 999px;
   -webkit-backdrop-filter: blur(16px) saturate(170%);
   backdrop-filter: blur(16px) saturate(170%);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.55), 0 8px 20px -12px rgba(19,41,75,.45);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.80), 0 0 0 1px rgba(19,41,75,.05), 0 10px 22px -14px rgba(19,41,75,.45);
 }
 .btn.solid{
-  background: linear-gradient(180deg, #FFFFFF 0%, rgba(255,255,255,.88) 100%);
-  border-color: rgba(255,255,255,.95);
-  box-shadow: inset 0 1px 0 #fff, 0 10px 26px -12px rgba(4,12,26,.55);
+  background: linear-gradient(180deg, #FFFFFF 0%, #F2F6FC 100%);
+  border-color: rgba(255,255,255,.98);
+  box-shadow: inset 0 1px 0 #fff, 0 0 0 1px rgba(4,12,26,.10), 0 12px 26px -14px rgba(4,12,26,.55);
 }
-.btn.solid:hover{ background: linear-gradient(180deg,#FFFFFF 0%,#D9E7FF 100%); }
+.btn.solid:hover{ background: linear-gradient(180deg,#FFFFFF 0%,#DFEAFF 100%); }
 .btn.ghost{
   background: rgba(255,255,255,.14);
-  border-color: rgba(255,255,255,.52);
+  border-color: rgba(255,255,255,.60);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.40), 0 10px 22px -16px rgba(0,0,0,.55);
 }
-.btn.ghost:hover{ background: rgba(255,255,255,.24); border-color: rgba(255,255,255,.8); }
+.btn.ghost:hover{ background: rgba(255,255,255,.24); border-color: rgba(255,255,255,.85); }
 .btn.nv{
   background: linear-gradient(180deg, #3D74C8 0%, #2F62B5 62%, #28579F 100%);
   border-color: rgba(255,255,255,.28);
@@ -355,12 +411,12 @@ html[data-theme="dark"] .hubcard .ic{
 }
 .btn.nv:hover{ background: linear-gradient(180deg,#396FC0,#244E94); }
 .btn.out, .btn.line{
-  background: rgba(255,255,255,.36);
-  border-color: var(--lg-edge);
+  background: rgba(255,255,255,.72);
+  border-color: rgba(255,255,255,.95);
   color: var(--accent);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 10px 24px -16px rgba(19,41,75,.55);
+  box-shadow: inset 0 1px 0 #fff, 0 0 0 1px rgba(19,41,75,.06), 0 10px 24px -16px rgba(19,41,75,.45);
 }
-.btn.out:hover, .btn.line:hover{ background: rgba(255,255,255,.62); }
+.btn.out:hover, .btn.line:hover{ background: #FFFFFF; }
 html[data-theme="dark"] .btn.out,
 html[data-theme="dark"] .btn.line{
   background: rgba(255,255,255,.06);
@@ -378,20 +434,21 @@ html[data-theme="dark"] .btn.line:hover{ background: rgba(255,255,255,.12); }
   border: 1px solid var(--lg-edge);
   box-shadow: var(--lg-inner), 0 10px 24px -14px rgba(19,41,75,.55);
 }
-.tlbtn:hover{ background: linear-gradient(150deg, rgba(19,41,75,.94), rgba(28,58,102,.9)); }
+.tlbtn:hover{ background: linear-gradient(150deg,#1B3F72,#13294B); border-color: rgba(255,255,255,.22); }
+.tlbtn:hover svg, .tlbtn:hover{ color:#fff; }
 
 /* ---------- 9. inputs --------------------------------------------------- */
 .search input{
-  background-color: rgba(255,255,255,.38);
+  background-color: rgba(255,255,255,.80);
   -webkit-backdrop-filter: blur(16px) saturate(170%);
   backdrop-filter: blur(16px) saturate(170%);
-  border: 1px solid var(--lg-edge);
+  border: 1px solid rgba(255,255,255,.95);
   border-radius: 999px;
   padding-left: 42px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.9), inset 0 1px 3px rgba(19,41,75,.05);
+  box-shadow: inset 0 1px 0 #fff, 0 0 0 1px rgba(19,41,75,.07), inset 0 1px 3px rgba(19,41,75,.04);
 }
 .search input:focus{
-  background-color: rgba(255,255,255,.70);
+  background-color: #FFFFFF;
   border-color: rgba(47,98,181,.55);
   box-shadow: inset 0 1px 0 #fff, var(--lg-focus);
 }
@@ -407,46 +464,87 @@ html[data-theme="dark"] .search input:focus{
 }
 
 /* ---------- 10. tables -------------------------------------------------- */
-.tbl, .atbl{ overflow: hidden; border-radius: 18px; }
-.tbl td, .atbl td{ border-bottom-color: var(--lg-ink-line); }
-.tbl th{
-  background: var(--lg-deep);
-  color: #E4EDFA;
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
-  backdrop-filter: blur(18px) saturate(160%);
-  border-bottom: 1px solid rgba(255,255,255,.12);
+/* The course table used to paint a fresh diagonal gradient inside every <th>,
+   so each column restarted the ramp and the right-hand columns (Level,
+   Semester, Status) showed a seam and a different shade. The header is now one
+   continuous navy band: the gradient sits on the row, the cells are clear. */
+.tbl{
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: var(--lg-fill);
+  background-image: var(--lg-sheen);
+  -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(var(--lg-sat));
+  backdrop-filter: blur(var(--lg-blur)) saturate(var(--lg-sat));
+  border: 1px solid rgba(255,255,255,.95);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--lg-inner), var(--lg-shadow);
 }
-html[data-theme="dark"] .tbl th{ background: var(--lg-deep-soft); color:#D8E4F4; }
+.tbl thead tr{ background: var(--lg-deep); }
+.tbl th{
+  background: transparent;
+  background-image: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  color: #E2EBF9;
+  border: 0;
+  border-bottom: 1px solid rgba(255,255,255,.16);
+  white-space: nowrap;
+}
+.tbl th:first-child{ border-top-left-radius: 17px; }
+.tbl th:last-child{ border-top-right-radius: 17px; }
+.tbl td{
+  border-bottom: 1px solid var(--lg-ink-line);
+  vertical-align: middle;
+}
+.tbl tbody tr:last-child td{ border-bottom: 0; }
+.tbl tbody tr:last-child td:first-child{ border-bottom-left-radius: 17px; }
+.tbl tbody tr:last-child td:last-child{ border-bottom-right-radius: 17px; }
+.tbl tbody tr:hover{ background-color: rgba(47,98,181,.055); }
+html[data-theme="dark"] .tbl{ border-color: rgba(255,255,255,.13); }
+html[data-theme="dark"] .tbl thead tr{ background: var(--lg-deep-soft); }
+html[data-theme="dark"] .tbl th{ color: #D8E4F4; border-bottom-color: rgba(255,255,255,.12); }
+html[data-theme="dark"] .tbl tbody tr:hover{ background-color: rgba(255,255,255,.05); }
+
+/* the three narrow columns stay on one line at every width */
+.tbl td:nth-child(n+2){ white-space: nowrap; }
+.tbl td{ font-variant-numeric: tabular-nums; }
+.st{ font-size:.82rem; color:#5C6A7E; }
+.st.on{ color: var(--accent); font-weight: 700; }
+html[data-theme="dark"] .st{ color:#96A5B9; }
+html[data-theme="dark"] .st.on{ color: var(--accent); }
+
+/* award / publication tables */
+.atbl{ overflow: hidden; border-radius: 18px; }
+.atbl td{ border-bottom-color: var(--lg-ink-line); }
 .atbl th{
-  background-color: rgba(255,255,255,.28);
+  background-color: rgba(255,255,255,.60);
   color: var(--muted);
   border-bottom: 1px solid var(--lg-ink-line);
 }
 html[data-theme="dark"] .atbl th{ background-color: rgba(255,255,255,.05); }
-.tbl tbody tr:hover, .atbl tbody tr:hover{ background-color: rgba(255,255,255,.30); }
-html[data-theme="dark"] .tbl tbody tr:hover,
+.atbl tbody tr:hover{ background-color: rgba(47,98,181,.055); }
 html[data-theme="dark"] .atbl tbody tr:hover{ background-color: rgba(255,255,255,.06); }
-.pitem:nth-child(even), .ar:nth-child(even){ background-color: rgba(255,255,255,.18); }
+
+.pitem:nth-child(even), .ar:nth-child(even){ background-color: rgba(19,41,75,.028); }
 html[data-theme="dark"] .pitem:nth-child(even),
 html[data-theme="dark"] .ar:nth-child(even){ background-color: rgba(255,255,255,.035); }
 
 /* ---------- 11. top utility bar + header -------------------------------- */
-/* the thin utility strip stays close to solid: its 12px copy needs the contrast,
-   and over white content a lighter band reads as washed grey */
+/* the thin utility strip sits on the signature navy: opaque and saturated, so
+   its 12px copy keeps its contrast and the bar never turns to grey haze */
 .topbar{
-  background: linear-gradient(180deg, rgba(19,41,75,.86) 0%, rgba(15,33,61,.92) 100%);
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
-  backdrop-filter: blur(18px) saturate(160%);
+  background: linear-gradient(180deg, #17335C 0%, #13294B 58%, #102440 100%);
   border-bottom: 1px solid rgba(255,255,255,.10);
-  box-shadow: 0 1px 0 rgba(255,255,255,.06), 0 10px 30px -22px rgba(6,14,28,.9);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 1px 0 rgba(255,255,255,.05), 0 10px 30px -24px rgba(6,14,28,.9);
   color:#D3DEEE;
 }
 html[data-theme="dark"] .topbar{
-  background: linear-gradient(180deg, rgba(10,20,36,.90) 0%, rgba(8,15,27,.94) 100%);
-  border-bottom-color: rgba(255,255,255,.07);
+  background: linear-gradient(180deg, #0E2038 0%, #0A1729 100%);
+  border-bottom-color: rgba(255,255,255,.08);
 }
-.topbar .uni b, .topbar .links a{ color:#E6EDF8; }
-.topbar .links a{ opacity:.82; }
+.topbar .uni b, .topbar .links a{ color:#E9F0FA; }
+.topbar .links a{ opacity:.86; }
 
 /* the bar stays glass while the page is at rest (its own translucent
    background comes from --glass, which is re-pointed above) … */
@@ -468,19 +566,22 @@ header.scrolled{
 header.scrolled nav{
   background-color: var(--lg-fill-strong);
   background-image: var(--lg-sheen);
-  -webkit-backdrop-filter: blur(24px) saturate(185%);
-  backdrop-filter: blur(24px) saturate(185%);
+  -webkit-backdrop-filter: blur(26px) saturate(185%);
+  backdrop-filter: blur(26px) saturate(185%);
   border: 1px solid var(--lg-edge);
   border-radius: 999px;
-  box-shadow: var(--lg-inner), 0 18px 40px -22px rgba(19,41,75,.55), 0 2px 10px -6px rgba(19,41,75,.25);
+  box-shadow: var(--lg-inner), var(--lg-contour),
+              0 20px 44px -22px rgba(19,41,75,.45),
+              0 2px 10px -6px rgba(19,41,75,.20);
   height: 64px;
   margin: 6px auto;
   padding-left: 22px;
   padding-right: 12px;
 }
 html[data-theme="dark"] header.scrolled nav{
-  border-color: rgba(255,255,255,.13);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.10), 0 20px 44px -24px rgba(0,0,0,.9);
+  border-color: rgba(255,255,255,.14);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 0 0 1px rgba(0,0,0,.5),
+              0 22px 46px -24px rgba(0,0,0,.9);
 }
 /* index keeps its transparent, white-text header over the photo hero */
 header[data-sc="over"]:not(.scrolled){
@@ -491,12 +592,14 @@ header[data-sc="over"]:not(.scrolled){
   backdrop-filter: none;
 }
 header[data-sc="over"]:not(.scrolled) nav{border-color:transparent; background:transparent; box-shadow:none;}
-/* the labels sit straight on the photo: a soft halo follows the glyphs so they
+/* the labels sit straight on the photo: a tight halo follows the glyphs so they
    stay legible on a bright sky, without any box behind the text */
 header[data-sc="over"]:not(.scrolled) nav a,
 header[data-sc="over"]:not(.scrolled) nav .bt b,
 header[data-sc="over"]:not(.scrolled) nav .bt span{
-  text-shadow: 0 1px 12px rgba(4,12,26,.55), 0 0 2px rgba(4,12,26,.30);
+  text-shadow: 0 1px 2px rgba(4,12,26,.55),
+               0 2px 14px rgba(4,12,26,.60),
+               0 0 1px rgba(4,12,26,.45);
 }
 
 /* keep the burger readable on the glass bar */
@@ -507,23 +610,34 @@ html[data-theme="dark"] .burger span,
 html[data-theme="dark"] header .burger span,
 html[data-theme="dark"] header.scrolled .burger span{ background: var(--ink); }
 
-/* dropdown menus */
+/* dropdown menus — a near-solid pane of glass: over a photo, a photo hero or
+   the navy band the labels keep their full contrast, because almost nothing
+   of what is behind comes through */
 .menu .sub{
-  background-color: var(--lg-fill-strong);
-  background-image: var(--lg-sheen);
-  -webkit-backdrop-filter: blur(26px) saturate(185%);
-  backdrop-filter: blur(26px) saturate(185%);
-  border: 1px solid var(--lg-edge);
-  border-radius: 18px;
-  box-shadow: var(--lg-inner), 0 26px 60px -26px rgba(19,41,75,.55), 0 4px 14px -8px rgba(19,41,75,.30);
+  background-color: rgba(255,255,255,.95);
+  background-image: linear-gradient(180deg, rgba(255,255,255,.98) 0%, rgba(255,255,255,.90) 100%);
+  -webkit-backdrop-filter: blur(30px) saturate(185%);
+  backdrop-filter: blur(30px) saturate(185%);
+  border: 1px solid rgba(255,255,255,.98);
+  border-radius: 16px;
+  box-shadow: inset 0 1px 0 #fff,
+              0 0 0 1px rgba(19,41,75,.09),
+              0 26px 60px -24px rgba(19,41,75,.42),
+              0 4px 14px -8px rgba(19,41,75,.22);
   padding: 10px;
 }
+.menu .sub a{ color:#1F2C40; font-weight: 600; }
+.menu .sub a:hover{ background-color: rgba(47,98,181,.10); color: var(--accent); }
 html[data-theme="dark"] .menu .sub{
-  border-color: rgba(255,255,255,.13);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.10), 0 28px 60px -28px rgba(0,0,0,.95);
+  background-color: rgba(14,24,40,.96);
+  background-image: linear-gradient(180deg, rgba(255,255,255,.06) 0%, rgba(255,255,255,.01) 100%);
+  border-color: rgba(255,255,255,.16);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.12),
+              0 0 0 1px rgba(0,0,0,.55),
+              0 28px 60px -26px rgba(0,0,0,.95);
 }
-.menu .sub a:hover{ background-color: rgba(255,255,255,.55); }
-html[data-theme="dark"] .menu .sub a:hover{ background-color: rgba(255,255,255,.08); }
+html[data-theme="dark"] .menu .sub a{ color:#EAF1FB; }
+html[data-theme="dark"] .menu .sub a:hover{ background-color: rgba(116,166,240,.16); color:#fff; }
 
 /* mobile menu panel — the frost belongs to the panel only. On the bar itself the
    menu row has no background, and a backdrop-filter there paints a blurred,
@@ -531,20 +645,22 @@ html[data-theme="dark"] .menu .sub a:hover{ background-color: rgba(255,255,255,.
    a different colour in the top banner. */
 @media(max-width:900px){
   .menu{
-    background-color: var(--lg-fill-strong);
+    background-color: rgba(255,255,255,.96);
     -webkit-backdrop-filter: blur(24px) saturate(180%);
     backdrop-filter: blur(24px) saturate(180%);
-    background-image: var(--lg-sheen);
-    border: 1px solid var(--lg-edge);
+    background-image: linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.92));
+    border: 1px solid rgba(255,255,255,.98);
     border-radius: 20px;
-    box-shadow: var(--lg-inner), 0 26px 60px -26px rgba(19,41,75,.55);
+    box-shadow: var(--lg-inner), 0 0 0 1px rgba(19,41,75,.09), 0 26px 60px -26px rgba(19,41,75,.45);
     padding: 12px 14px;
   }
   html[data-theme="dark"] .menu{
-    border-color: rgba(255,255,255,.13);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.10), 0 28px 60px -28px rgba(0,0,0,.95);
+    background-color: rgba(14,24,40,.96);
+    background-image: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.01));
+    border-color: rgba(255,255,255,.16);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 0 0 1px rgba(0,0,0,.55), 0 28px 60px -28px rgba(0,0,0,.95);
   }
-  .menu .sub{ box-shadow:none; border:0; background:transparent; -webkit-backdrop-filter:none; backdrop-filter:none; }
+  .menu .sub{ box-shadow:none; border:0; background:transparent; background-image:none; -webkit-backdrop-filter:none; backdrop-filter:none; }
 
   /* the floating pill leaves room for the hamburger */
   header.scrolled nav{ padding-left:16px; padding-right:8px; }
@@ -558,29 +674,29 @@ html[data-theme="dark"] .menu .sub a:hover{ background-color: rgba(255,255,255,.
   padding:0;
   display:block;
   height:auto;
-  background-color: rgba(255,255,255,.42);
+  background-color: rgba(255,255,255,.86);
   background-image: var(--lg-sheen);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid var(--lg-edge);
+  border-bottom: 1px solid rgba(19,41,75,.10);
   box-shadow: 0 12px 30px -30px rgba(19,41,75,.75);
 }
 .subtabs .in{ display:flex; }
 .subtabs .in{ overflow-x:auto; scrollbar-width:none; -ms-overflow-style:none; }
 .subtabs .in::-webkit-scrollbar{ display:none; }
 html[data-theme="dark"] .subtabs{
-  background-color: rgba(12,21,34,.58);
+  background-color: rgba(12,21,34,.80);
   border-bottom-color: rgba(255,255,255,.08);
 }
 .subtabs a.on{ border-bottom-color: var(--accent); }
 
 /* KR | EN + theme controls */
 .sc-lang, .sc-theme{
-  background-color: rgba(255,255,255,.38);
+  background-color: rgba(255,255,255,.72);
   -webkit-backdrop-filter: blur(16px) saturate(175%);
   backdrop-filter: blur(16px) saturate(175%);
-  border-color: var(--lg-edge);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.9);
+  border-color: rgba(255,255,255,.95);
+  box-shadow: inset 0 1px 0 #fff, 0 0 0 1px rgba(19,41,75,.06);
 }
 html[data-theme="dark"] .sc-lang,
 html[data-theme="dark"] .sc-theme{
@@ -590,9 +706,9 @@ html[data-theme="dark"] .sc-theme{
 }
 header[data-sc="over"]:not(.scrolled) .sc-lang,
 header[data-sc="over"]:not(.scrolled) .sc-theme{
-  background-color: rgba(255,255,255,.14);
-  border-color: rgba(255,255,255,.34);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.35);
+  background-color: rgba(255,255,255,.16);
+  border-color: rgba(255,255,255,.40);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.45);
 }
 
 /* ---------- 12. hero (index) -------------------------------------------- */
@@ -604,30 +720,31 @@ header[data-sc="over"]:not(.scrolled) .sc-theme{
   z-index:1;
   pointer-events:none;
   background:
-    radial-gradient(52vw 42vw at 18% 22%, rgba(120,168,255,.30) 0%, rgba(120,168,255,0) 62%),
-    radial-gradient(46vw 40vw at 88% 84%, rgba(70,130,220,.26) 0%, rgba(70,130,220,0) 64%);
+    radial-gradient(52vw 42vw at 18% 22%, rgba(120,168,255,.22) 0%, rgba(120,168,255,0) 62%),
+    radial-gradient(46vw 40vw at 88% 84%, rgba(70,130,220,.20) 0%, rgba(70,130,220,0) 64%);
   filter: blur(10px);
 }
 .hero-ov{
   background:
-    linear-gradient(90deg, rgba(7,16,30,.88) 0%, rgba(7,16,30,.54) 44%, rgba(7,16,30,.26) 100%),
-    linear-gradient(180deg, rgba(7,16,30,.36) 0%, rgba(7,16,30,0) 26%, rgba(7,16,30,.22) 100%);
+    linear-gradient(90deg, rgba(6,14,27,.92) 0%, rgba(6,14,27,.62) 42%, rgba(6,14,27,.34) 100%),
+    linear-gradient(180deg, rgba(6,14,27,.42) 0%, rgba(6,14,27,0) 24%, rgba(6,14,27,.30) 100%);
 }
 
 /* the Latest News glass panel */
 .newspanel{
-  background-color: rgba(12,24,44,.34);
-  background-image: linear-gradient(180deg, rgba(255,255,255,.16) 0%, rgba(255,255,255,.02) 46%, rgba(255,255,255,0) 100%);
-  -webkit-backdrop-filter: blur(26px) saturate(180%);
-  backdrop-filter: blur(26px) saturate(180%);
-  border: 1px solid rgba(255,255,255,.22);
+  background-color: rgba(10,21,39,.58);
+  background-image: linear-gradient(180deg, rgba(255,255,255,.18) 0%, rgba(255,255,255,.03) 46%, rgba(255,255,255,0) 100%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid rgba(255,255,255,.26);
   border-radius: 24px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.28),
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.34),
+              0 0 0 1px rgba(0,0,0,.28),
               0 30px 70px -30px rgba(0,0,0,.85),
               0 2px 10px -6px rgba(0,0,0,.5);
 }
 .newspanel .nrow{ border-top-color: rgba(255,255,255,.12); }
-.newspanel .nrow:hover{ background: rgba(255,255,255,.05); }
+.newspanel .nrow:hover{ background: rgba(255,255,255,.06); }
 
 /* ---------- 13. page hero (sub pages) ----------------------------------- */
 /* the band carries its own padding, so it no longer inherits section padding */
@@ -636,9 +753,9 @@ section.phero > .wrap{ padding: 54px 28px 50px; }
 
 .phero{
   background:
-    radial-gradient(90vw 70vw at 88% -30%, rgba(122,176,255,.22) 0%, rgba(122,176,255,0) 62%),
-    radial-gradient(70vw 60vw at 2% 130%, rgba(64,118,200,.20) 0%, rgba(64,118,200,0) 64%),
-    linear-gradient(135deg, #0E2141 0%, #17376B 58%, #1F4E8E 100%);
+    radial-gradient(90vw 70vw at 88% -30%, rgba(122,176,255,.26) 0%, rgba(122,176,255,0) 62%),
+    radial-gradient(70vw 60vw at 2% 130%, rgba(64,118,200,.24) 0%, rgba(64,118,200,0) 64%),
+    linear-gradient(135deg, #12294B 0%, #1A3C6F 58%, #1F4E8E 100%);
   box-shadow: inset 0 -1px 0 rgba(255,255,255,.14);
 }
 .phero::before{ opacity:.32; }
@@ -657,37 +774,59 @@ html[data-theme="dark"] .phero{
   background:
     radial-gradient(90vw 70vw at 88% -30%, rgba(58,110,190,.22) 0%, rgba(58,110,190,0) 62%),
     radial-gradient(70vw 60vw at 2% 130%, rgba(30,64,120,.34) 0%, rgba(30,64,120,0) 64%),
-    linear-gradient(135deg, #071019 0%, #0B1B33 58%, #102A4E 100%);
+    linear-gradient(135deg, #060E1B 0%, #0B1B33 58%, #102A4E 100%);
   box-shadow: inset 0 -1px 0 rgba(255,255,255,.08);
 }
 .phero h1{ text-shadow: 0 2px 18px rgba(4,12,26,.35); }
 
 /* ---------- 14. stats band, footer -------------------------------------- */
+/* the signature stats band: opaque, saturated navy. A translucent version let
+   the pale canvas through and turned the lab's strongest colour into slate. */
 .stats{
-  background: linear-gradient(150deg, rgba(21,45,84,.86) 0%, rgba(27,56,102,.78) 58%, rgba(17,36,66,.88) 100%);
-  -webkit-backdrop-filter: blur(20px) saturate(165%);
-  backdrop-filter: blur(20px) saturate(165%);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.14), inset 0 -1px 0 rgba(255,255,255,.10);
+  background: linear-gradient(150deg, #1B3F72 0%, #16305A 34%, #13294B 68%, #0E2140 100%);
+  border-top: 1px solid rgba(255,255,255,.10);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.18), inset 0 -1px 0 rgba(0,0,0,.25);
+  position: relative;
 }
-.stats::before{ opacity:.22; }
-html[data-theme="dark"] .stats{ background: var(--lg-deep-soft); }
+.stats::before{ opacity:.30; }
+/* specular sweep across the band, as if light travelled over the glass */
+.stats::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(108deg, rgba(255,255,255,0) 18%, rgba(255,255,255,.07) 38%, rgba(255,255,255,.015) 56%, rgba(255,255,255,0) 74%),
+    radial-gradient(70% 140% at 92% 118%, rgba(122,176,255,.16) 0%, rgba(122,176,255,0) 60%);
+}
+.statgrid{ position:relative; z-index:1; }
+html[data-theme="dark"] .stats{
+  background: linear-gradient(150deg, #12294B 0%, #0E2038 46%, #0A1729 100%);
+  border-top-color: rgba(255,255,255,.07);
+  border-bottom-color: rgba(255,255,255,.05);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.10), inset 0 -1px 0 rgba(0,0,0,.40);
+}
+html[data-theme="dark"] .stats::after{
+  background:
+    linear-gradient(108deg, rgba(255,255,255,0) 18%, rgba(255,255,255,.045) 38%, rgba(255,255,255,.01) 56%, rgba(255,255,255,0) 74%),
+    radial-gradient(70% 140% at 92% 118%, rgba(84,140,220,.16) 0%, rgba(84,140,220,0) 60%);
+}
 
 footer{
-  background: linear-gradient(180deg, rgba(9,18,33,.92) 0%, rgba(7,14,26,.96) 100%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
-  backdrop-filter: blur(20px) saturate(160%);
-  border-top: 1px solid rgba(255,255,255,.10);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.07);
+  background: linear-gradient(180deg, #102440 0%, #0A1729 100%);
+  border-top: 1px solid rgba(255,255,255,.11);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.10);
 }
 html[data-theme="dark"] footer{
-  background: linear-gradient(180deg, rgba(8,15,27,.94) 0%, rgba(5,10,19,.97) 100%);
+  background: linear-gradient(180deg, #0B1A2E 0%, #060C16 100%);
   border-top-color: rgba(255,255,255,.07);
 }
 .fbrand img, .mju .mjlogo, .topbar .uni img{ box-shadow: 0 4px 14px -8px rgba(0,0,0,.6); }
 
 /* ---------- 15. album lightbox ----------------------------------------- */
 .lb{
-  background: rgba(5,12,24,.72);
+  background: rgba(5,12,24,.76);
   -webkit-backdrop-filter: blur(30px) saturate(160%);
   backdrop-filter: blur(30px) saturate(160%);
 }
@@ -743,10 +882,11 @@ a:focus-visible, button:focus-visible, input:focus-visible,
   border-radius: 8px;
 }
 
-/* keep text crisp on frosted surfaces */
+/* keep text crisp on frosted surfaces (a light, tight halo only: a wide one
+   reads as a smear on the clear glass) */
 .rcard h3, .pcard h3, .ncard .nt b, .pjc h4, .scard h3, .prof .nm,
 .shead h2, .seclbl, .mlabel .t{
-  text-shadow: 0 1px 0 rgba(255,255,255,.45);
+  text-shadow: 0 1px 0 rgba(255,255,255,.60);
 }
 html[data-theme="dark"] .rcard h3,
 html[data-theme="dark"] .pcard h3,
@@ -770,10 +910,13 @@ html[data-theme="dark"] .mlabel .t{ text-shadow: 0 1px 2px rgba(0,0,0,.5); }
   /* single-column hero: the copy spans the whole width, so darken vertically */
   .hero-ov{
     background:
-      linear-gradient(180deg, rgba(7,16,30,.66) 0%, rgba(7,16,30,.52) 38%, rgba(7,16,30,.74) 100%);
+      linear-gradient(180deg, rgba(6,14,27,.70) 0%, rgba(6,14,27,.54) 38%, rgba(6,14,27,.78) 100%);
   }
   section.phero > .wrap{ padding: 44px 28px 40px; }
   header.scrolled nav{ height: 60px; margin: 6px auto; }
+  /* narrow screens: let the two narrow course columns wrap rather than push
+     the table wider than the page */
+  .tbl td:nth-child(n+2){ white-space: normal; }
 }
 @media(max-width:560px){
   .ndetail{ padding: 24px 20px 18px; }
@@ -783,6 +926,7 @@ html[data-theme="dark"] .mlabel .t{ text-shadow: 0 1px 2px rgba(0,0,0,.5); }
   section.phero > .wrap{ padding: 36px 24px 34px; }
   header.scrolled nav{ padding-left: 14px; padding-right: 6px; }
   .tlcard{ padding: 12px; border-radius: 14px; }
+  .lv{ padding: 3px 10px; }
 }
 
 /* print: drop the frosted layers */
