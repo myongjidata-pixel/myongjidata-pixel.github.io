@@ -212,7 +212,12 @@
       try { bg = getComputedStyle(hdr).backgroundColor; } catch (e) {}
       if (!bg || bg === 'transparent' || /rgba\(0, 0, 0, 0\)/.test(bg)) hdr.setAttribute('data-sc', 'over');
     } else {
-      D.body.appendChild(buildCluster(true));
+      // pages without a header (404) are already a dark splash screen:
+      // only the language switch is useful there
+      var float = buildCluster(true);
+      var tb = float.querySelector('.sc-theme');
+      if (tb) tb.remove();
+      D.body.appendChild(float);
     }
   }
 
