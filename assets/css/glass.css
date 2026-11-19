@@ -763,9 +763,9 @@ section.phero > .wrap{ padding: 54px 28px 50px; }
 
 .phero{
   background:
-    radial-gradient(90vw 70vw at 88% -30%, rgba(122,176,255,.17) 0%, rgba(122,176,255,0) 60%),
-    radial-gradient(70vw 60vw at 2% 130%, rgba(64,118,200,.20) 0%, rgba(64,118,200,0) 64%),
-    linear-gradient(135deg, #12294B 0%, #173A6A 58%, #1B4478 100%);
+    radial-gradient(90vw 70vw at 88% -30%, rgba(122,176,255,.11) 0%, rgba(122,176,255,0) 60%),
+    radial-gradient(70vw 60vw at 2% 130%, rgba(64,118,200,.16) 0%, rgba(64,118,200,0) 64%),
+    linear-gradient(135deg, #12294B 0%, #173A6A 58%, #1A4172 100%);
   box-shadow: inset 0 -1px 0 rgba(255,255,255,.14);
 }
 .phero::before{ opacity:.32; }
@@ -782,9 +782,9 @@ section.phero > .wrap{ padding: 54px 28px 50px; }
 .phero .wrap{ position:relative; z-index:1; }
 html[data-theme="dark"] .phero{
   background:
-    radial-gradient(90vw 70vw at 88% -30%, rgba(58,110,190,.22) 0%, rgba(58,110,190,0) 62%),
-    radial-gradient(70vw 60vw at 2% 130%, rgba(30,64,120,.34) 0%, rgba(30,64,120,0) 64%),
-    linear-gradient(135deg, #060E1B 0%, #0B1B33 58%, #102A4E 100%);
+    radial-gradient(90vw 70vw at 88% -30%, rgba(58,110,190,.14) 0%, rgba(58,110,190,0) 60%),
+    radial-gradient(70vw 60vw at 2% 130%, rgba(30,64,120,.28) 0%, rgba(30,64,120,0) 64%),
+    linear-gradient(135deg, #071019 0%, #0B1B33 58%, #0E2547 100%);
   box-shadow: inset 0 -1px 0 rgba(255,255,255,.08);
 }
 .phero h1{ text-shadow: 0 2px 18px rgba(4,12,26,.35); }
