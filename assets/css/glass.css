@@ -17,18 +17,19 @@
 /* ---------- 1. tokens ---------------------------------------------------- */
 :root{
   /* glass system */
-  --lg-blur: 22px;
-  --lg-sat: 178%;
-  --lg-fill:        rgba(255,255,255,.58);
-  --lg-fill-2:      rgba(255,255,255,.30);
-  --lg-fill-3:      rgba(255,255,255,.20);
-  --lg-fill-strong: rgba(255,255,255,.76);
-  --lg-edge:        rgba(255,255,255,.72);   /* specular rim */
-  --lg-hair:        rgba(19,41,75,.10);      /* outer hairline */
+  --lg-blur: 26px;
+  --lg-sat: 182%;
+  --lg-fill:        rgba(255,255,255,.38);
+  --lg-fill-2:      rgba(255,255,255,.18);
+  --lg-fill-3:      rgba(255,255,255,.12);
+  --lg-fill-strong: rgba(255,255,255,.56);
+  --lg-edge:        rgba(255,255,255,.60);   /* specular rim */
+  --lg-hair:        rgba(19,41,75,.09);      /* outer hairline */
   --lg-ink-line:    rgba(19,41,75,.16);
-  --lg-sheen: linear-gradient(180deg, rgba(255,255,255,.42) 0%, rgba(255,255,255,.04) 46%, rgba(255,255,255,0) 100%);
-  --lg-inner: inset 0 1px 0 rgba(255,255,255,.92),
-              inset 0 -1px 0 rgba(255,255,255,.28);
+  --lg-dot:         #F7FAFF;                 /* opaque timeline dot over the rule */
+  --lg-sheen: linear-gradient(180deg, rgba(255,255,255,.30) 0%, rgba(255,255,255,.03) 46%, rgba(255,255,255,0) 100%);
+  --lg-inner: inset 0 1px 0 rgba(255,255,255,.80),
+              inset 0 -1px 0 rgba(255,255,255,.22);
   --lg-shadow:      0 1px 2px rgba(19,41,75,.05),
                     0 16px 36px -18px rgba(19,41,75,.30);
   --lg-shadow-lg:   0 2px 6px rgba(19,41,75,.07),
@@ -40,13 +41,13 @@
   --lg-deep-soft: linear-gradient(150deg, rgba(23,48,88,.86) 0%, rgba(19,41,75,.90) 100%);
 
   /* re-point the pages' palette at glass */
-  --card: rgba(255,255,255,.58);
-  --soft: rgba(255,255,255,.22);
-  --soft2: rgba(255,255,255,.36);
-  --line: rgba(19,41,75,.11);
+  --card: rgba(255,255,255,.38);
+  --soft: rgba(255,255,255,.14);
+  --soft2: rgba(255,255,255,.24);
+  --line: rgba(19,41,75,.12);
   --line-strong: rgba(19,41,75,.20);
-  --glass: rgba(255,255,255,.62);
-  --cream: rgba(255,255,255,.30);
+  --glass: rgba(255,255,255,.46);
+  --cream: rgba(255,255,255,.20);
   --dim: #6E7A8A;            /* small captions: lifted for readability */
 
   /* ambient backdrop */
@@ -59,16 +60,17 @@
 }
 
 html[data-theme="dark"]{
-  --lg-fill:        rgba(24,35,51,.56);
-  --lg-fill-2:      rgba(255,255,255,.045);
-  --lg-fill-3:      rgba(255,255,255,.03);
-  --lg-fill-strong: rgba(26,38,56,.78);
-  --lg-edge:        rgba(255,255,255,.16);
-  --lg-hair:        rgba(255,255,255,.10);
+  --lg-fill:        rgba(24,35,51,.42);
+  --lg-fill-2:      rgba(255,255,255,.04);
+  --lg-fill-3:      rgba(255,255,255,.028);
+  --lg-fill-strong: rgba(26,38,56,.62);
+  --lg-edge:        rgba(255,255,255,.15);
+  --lg-hair:        rgba(255,255,255,.09);
   --lg-ink-line:    rgba(255,255,255,.14);
-  --lg-sheen: linear-gradient(180deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,.02) 48%, rgba(255,255,255,0) 100%);
-  --lg-inner: inset 0 1px 0 rgba(255,255,255,.12),
-              inset 0 -1px 0 rgba(0,0,0,.30);
+  --lg-dot:         #101926;
+  --lg-sheen: linear-gradient(180deg, rgba(255,255,255,.08) 0%, rgba(255,255,255,.02) 48%, rgba(255,255,255,0) 100%);
+  --lg-inner: inset 0 1px 0 rgba(255,255,255,.10),
+              inset 0 -1px 0 rgba(0,0,0,.26);
   --lg-shadow:      0 1px 2px rgba(0,0,0,.40),
                     0 18px 40px -20px rgba(0,0,0,.75);
   --lg-shadow-lg:   0 2px 8px rgba(0,0,0,.45),
@@ -78,12 +80,12 @@ html[data-theme="dark"]{
   --lg-deep: linear-gradient(150deg, rgba(12,24,42,.92) 0%, rgba(16,32,56,.88) 58%, rgba(8,17,31,.94) 100%);
   --lg-deep-soft: linear-gradient(150deg, rgba(15,29,50,.88) 0%, rgba(10,19,32,.92) 100%);
 
-  --card: rgba(24,35,51,.56);
+  --card: rgba(24,35,51,.42);
   --soft: rgba(255,255,255,.045);
   --soft2: rgba(255,255,255,.06);
   --line: rgba(255,255,255,.11);
   --line-strong: rgba(255,255,255,.20);
-  --glass: rgba(14,23,37,.72);
+  --glass: rgba(14,23,37,.54);
   --cream: rgba(255,255,255,.045);
   --dim: #8B99AB;
 
@@ -220,9 +222,13 @@ html[data-theme="dark"] section.honors{
 /* list boxes keep the hairline separators inside */
 .plist, .alumni{ overflow: hidden; }
 
-/* soft hairline separators everywhere */
-.mlabel .ln, .tl, .aws::before, .tlitem::before, .tlitem.up .dot::after,
+/* soft hairline separators everywhere — thin rules and dots only: a container
+   such as .tl must never take a wash, or the whole text block turns into a
+   grey rectangle behind the copy */
+.mlabel .ln, .aws::before, .tlitem::before, .tlitem.up .dot::after,
 .tlitem.down .dot::after{ background: var(--lg-ink-line); }
+.tl{ border-left-color: var(--lg-ink-line); }
+.tl .it::before{ background: var(--lg-dot); }
 
 /* ---------- 5. hover / active states (page rules win on specificity) ----- */
 .hubcard:hover{
@@ -245,9 +251,13 @@ html[data-theme="dark"] .acard:hover{ border-color: rgba(116,166,240,.40); }
   border-color: rgba(47,98,181,.34);
   box-shadow: var(--lg-inner), var(--lg-shadow-lg);
 }
+/* hover must not touch the avatar's background: .mc .ph carries the lab mark as
+   a background-image, and any `background` shorthand here wipes it out */
 .mwrap .mc:hover .ph{
-  background: linear-gradient(150deg, rgba(19,41,75,.92), rgba(28,58,102,.88));
-  color:#fff;
+  box-shadow: 0 0 0 3px rgba(47,98,181,.20), inset 0 1px 0 rgba(255,255,255,.55);
+}
+html[data-theme="dark"] .mwrap .mc:hover .ph{
+  box-shadow: 0 0 0 3px rgba(116,166,240,.24), inset 0 1px 0 rgba(255,255,255,.10);
 }
 
 /* ---------- 6. avatars, figures, media ---------------------------------- */
@@ -270,7 +280,7 @@ html[data-theme="dark"] .acard .cv{
 
 /* chart / diagram panels inside research cards */
 .rcard .fig, .rfig{
-  background-color: rgba(255,255,255,.52);
+  background-color: rgba(255,255,255,.34);
   background-image: var(--lg-sheen);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.75);
 }
@@ -289,7 +299,7 @@ html[data-theme="dark"] .rfig{
 .lv.g{ box-shadow: inset 0 1px 0 rgba(255,255,255,.75); }
 
 .prof .edu span, .pcard .edu span{
-  background-color: rgba(255,255,255,.55);
+  background-color: rgba(255,255,255,.40);
   border: 1px solid var(--lg-edge);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.85);
   color: var(--ink3);
@@ -303,7 +313,7 @@ html[data-theme="dark"] .pcard .edu span{
 }
 
 .hubcard .ic{
-  background: linear-gradient(160deg, rgba(255,255,255,.75), rgba(233,240,251,.55));
+  background: linear-gradient(160deg, rgba(255,255,255,.62), rgba(233,240,251,.40));
   box-shadow: inset 0 1px 0 rgba(255,255,255,.95), 0 6px 16px -10px rgba(47,98,181,.55);
 }
 html[data-theme="dark"] .hubcard .ic{
@@ -317,7 +327,7 @@ html[data-theme="dark"] .hubcard .ic{
   backdrop-filter: blur(14px) saturate(180%);
   box-shadow: 0 6px 18px -10px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.45);
 }
-.acard .pill{ background: rgba(255,255,255,.72); color: var(--navy); }
+.acard .pill{ background: rgba(255,255,255,.62); color: var(--navy); }
 
 /* ---------- 8. buttons --------------------------------------------------- */
 .btn{
@@ -345,12 +355,12 @@ html[data-theme="dark"] .hubcard .ic{
 }
 .btn.nv:hover{ background: linear-gradient(180deg,#396FC0,#244E94); }
 .btn.out, .btn.line{
-  background: rgba(255,255,255,.52);
+  background: rgba(255,255,255,.36);
   border-color: var(--lg-edge);
   color: var(--accent);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 10px 24px -16px rgba(19,41,75,.55);
 }
-.btn.out:hover, .btn.line:hover{ background: rgba(255,255,255,.8); }
+.btn.out:hover, .btn.line:hover{ background: rgba(255,255,255,.62); }
 html[data-theme="dark"] .btn.out,
 html[data-theme="dark"] .btn.line{
   background: rgba(255,255,255,.06);
@@ -372,7 +382,7 @@ html[data-theme="dark"] .btn.line:hover{ background: rgba(255,255,255,.12); }
 
 /* ---------- 9. inputs --------------------------------------------------- */
 .search input{
-  background-color: rgba(255,255,255,.55);
+  background-color: rgba(255,255,255,.38);
   -webkit-backdrop-filter: blur(16px) saturate(170%);
   backdrop-filter: blur(16px) saturate(170%);
   border: 1px solid var(--lg-edge);
@@ -381,7 +391,7 @@ html[data-theme="dark"] .btn.line:hover{ background: rgba(255,255,255,.12); }
   box-shadow: inset 0 1px 0 rgba(255,255,255,.9), inset 0 1px 3px rgba(19,41,75,.05);
 }
 .search input:focus{
-  background-color: rgba(255,255,255,.88);
+  background-color: rgba(255,255,255,.70);
   border-color: rgba(47,98,181,.55);
   box-shadow: inset 0 1px 0 #fff, var(--lg-focus);
 }
@@ -408,19 +418,21 @@ html[data-theme="dark"] .search input:focus{
 }
 html[data-theme="dark"] .tbl th{ background: var(--lg-deep-soft); color:#D8E4F4; }
 .atbl th{
-  background-color: rgba(255,255,255,.42);
+  background-color: rgba(255,255,255,.28);
   color: var(--muted);
   border-bottom: 1px solid var(--lg-ink-line);
 }
 html[data-theme="dark"] .atbl th{ background-color: rgba(255,255,255,.05); }
-.tbl tbody tr:hover, .atbl tbody tr:hover{ background-color: rgba(255,255,255,.45); }
+.tbl tbody tr:hover, .atbl tbody tr:hover{ background-color: rgba(255,255,255,.30); }
 html[data-theme="dark"] .tbl tbody tr:hover,
 html[data-theme="dark"] .atbl tbody tr:hover{ background-color: rgba(255,255,255,.06); }
-.pitem:nth-child(even), .ar:nth-child(even){ background-color: rgba(255,255,255,.28); }
+.pitem:nth-child(even), .ar:nth-child(even){ background-color: rgba(255,255,255,.18); }
 html[data-theme="dark"] .pitem:nth-child(even),
 html[data-theme="dark"] .ar:nth-child(even){ background-color: rgba(255,255,255,.035); }
 
 /* ---------- 11. top utility bar + header -------------------------------- */
+/* the thin utility strip stays close to solid: its 12px copy needs the contrast,
+   and over white content a lighter band reads as washed grey */
 .topbar{
   background: linear-gradient(180deg, rgba(19,41,75,.86) 0%, rgba(15,33,61,.92) 100%);
   -webkit-backdrop-filter: blur(18px) saturate(160%);
@@ -506,11 +518,15 @@ html[data-theme="dark"] .menu .sub{
 .menu .sub a:hover{ background-color: rgba(255,255,255,.55); }
 html[data-theme="dark"] .menu .sub a:hover{ background-color: rgba(255,255,255,.08); }
 
-/* mobile menu panel */
-.menu{ -webkit-backdrop-filter: blur(24px) saturate(180%); backdrop-filter: blur(24px) saturate(180%); }
+/* mobile menu panel — the frost belongs to the panel only. On the bar itself the
+   menu row has no background, and a backdrop-filter there paints a blurred,
+   over-saturated rectangle exactly behind the labels, which reads as a patch of
+   a different colour in the top banner. */
 @media(max-width:900px){
   .menu{
     background-color: var(--lg-fill-strong);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    backdrop-filter: blur(24px) saturate(180%);
     background-image: var(--lg-sheen);
     border: 1px solid var(--lg-edge);
     border-radius: 20px;
@@ -535,7 +551,7 @@ html[data-theme="dark"] .menu .sub a:hover{ background-color: rgba(255,255,255,.
   padding:0;
   display:block;
   height:auto;
-  background-color: rgba(255,255,255,.58);
+  background-color: rgba(255,255,255,.42);
   background-image: var(--lg-sheen);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   backdrop-filter: blur(20px) saturate(180%);
@@ -546,14 +562,14 @@ html[data-theme="dark"] .menu .sub a:hover{ background-color: rgba(255,255,255,.
 .subtabs .in{ overflow-x:auto; scrollbar-width:none; -ms-overflow-style:none; }
 .subtabs .in::-webkit-scrollbar{ display:none; }
 html[data-theme="dark"] .subtabs{
-  background-color: rgba(12,21,34,.72);
+  background-color: rgba(12,21,34,.58);
   border-bottom-color: rgba(255,255,255,.08);
 }
 .subtabs a.on{ border-bottom-color: var(--accent); }
 
 /* KR | EN + theme controls */
 .sc-lang, .sc-theme{
-  background-color: rgba(255,255,255,.55);
+  background-color: rgba(255,255,255,.38);
   -webkit-backdrop-filter: blur(16px) saturate(175%);
   backdrop-filter: blur(16px) saturate(175%);
   border-color: var(--lg-edge);
@@ -593,7 +609,7 @@ header[data-sc="over"]:not(.scrolled) .sc-theme{
 
 /* the Latest News glass panel */
 .newspanel{
-  background-color: rgba(12,24,44,.42);
+  background-color: rgba(12,24,44,.34);
   background-image: linear-gradient(180deg, rgba(255,255,255,.16) 0%, rgba(255,255,255,.02) 46%, rgba(255,255,255,0) 100%);
   -webkit-backdrop-filter: blur(26px) saturate(180%);
   backdrop-filter: blur(26px) saturate(180%);
