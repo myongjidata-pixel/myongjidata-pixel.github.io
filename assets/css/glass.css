@@ -19,7 +19,7 @@
   /* glass system */
   --lg-blur: 22px;
   --lg-sat: 178%;
-  --lg-fill:        rgba(255,255,255,.48);
+  --lg-fill:        rgba(255,255,255,.58);
   --lg-fill-2:      rgba(255,255,255,.30);
   --lg-fill-3:      rgba(255,255,255,.20);
   --lg-fill-strong: rgba(255,255,255,.76);
@@ -40,7 +40,7 @@
   --lg-deep-soft: linear-gradient(150deg, rgba(23,48,88,.86) 0%, rgba(19,41,75,.90) 100%);
 
   /* re-point the pages' palette at glass */
-  --card: rgba(255,255,255,.48);
+  --card: rgba(255,255,255,.58);
   --soft: rgba(255,255,255,.22);
   --soft2: rgba(255,255,255,.36);
   --line: rgba(19,41,75,.11);
@@ -270,9 +270,9 @@ html[data-theme="dark"] .acard .cv{
 
 /* chart / diagram panels inside research cards */
 .rcard .fig, .rfig{
-  background-color: rgba(255,255,255,.32);
-  background-image: none;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.65);
+  background-color: rgba(255,255,255,.52);
+  background-image: var(--lg-sheen);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.75);
 }
 html[data-theme="dark"] .rcard .fig,
 html[data-theme="dark"] .rfig{
