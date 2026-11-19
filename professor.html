@@ -24,10 +24,10 @@
   .btn.nv{background:var(--accent);color:#fff}.btn.nv:hover{background:var(--accent-d)}
   .btn.line{border-color:var(--line);color:var(--navy)}.btn.line:hover{border-color:var(--accent);color:var(--accent)}
 
-  .topbar{background:var(--navy);color:#cdd8ea;font-size:.78rem}
+  .topbar{background:var(--navy-bg);color:#cdd8ea;font-size:.78rem}
   .topbar .wrap{display:flex;justify-content:space-between;align-items:center;height:38px;max-width:1180px}
   .topbar a{color:#cdd8ea;opacity:.85}.topbar a:hover{opacity:1}.topbar .sep{margin:0 10px;opacity:.35}
-  header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  header{position:sticky;top:0;z-index:60;background:var(--glass);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
   nav{display:flex;align-items:center;justify-content:space-between;height:76px;max-width:1180px;margin:0 auto;padding:0 28px}
   .brand{display:flex;align-items:center;gap:13px}.brand img{height:38px;width:auto}
   .brand .bt{display:flex;flex-direction:column}
@@ -35,19 +35,19 @@
   .menu{display:flex;align-items:center;gap:26px}
   .menu>a,.menu>.hassub{display:flex;align-items:center}
   .menu>a,.menu .hassub>.top{line-height:1.2}
-  .menu a{font-weight:600;font-size:.9rem;color:#3a4658;padding:6px 0;transition:.2s}.menu a:hover{color:var(--accent)}
+  .menu a{font-weight:600;font-size:.9rem;color:var(--ink2);padding:6px 0;transition:.2s}.menu a:hover{color:var(--accent)}
   .menu a.on{color:var(--accent)}
-  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px}.burger span{width:24px;height:2px;background:var(--navy);border-radius:2px}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px}.burger span{width:24px;height:2px;background:var(--navy-bg);border-radius:2px}
   /* MEMBERS DROPDOWN */
   .menu .hassub{position:relative}
-  .menu .hassub>.top{font-weight:600;font-size:.9rem;color:#3a4658;padding:6px 0;cursor:pointer}
+  .menu .hassub>.top{font-weight:600;font-size:.9rem;color:var(--ink2);padding:6px 0;cursor:pointer}
   .menu .hassub>.top.on,.menu .hassub>.top:hover{color:var(--accent)}
-  .menu .sub{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(10px);background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 18px 44px rgba(19,41,75,.13);padding:8px;min-width:168px;opacity:0;visibility:hidden;transition:.2s;display:flex;flex-direction:column;gap:2px;z-index:70}
+  .menu .sub{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(10px);background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 18px 44px rgba(19,41,75,.13);padding:8px;min-width:168px;opacity:0;visibility:hidden;transition:.2s;display:flex;flex-direction:column;gap:2px;z-index:70}
   .menu .hassub:hover .sub{opacity:1;visibility:visible;transform:translateX(-50%) translateY(6px)}
-  .menu .sub a{padding:9px 14px;border-radius:8px;font-size:.88rem;color:#3a4658;white-space:nowrap}
+  .menu .sub a{padding:9px 14px;border-radius:8px;font-size:.88rem;color:var(--ink2);white-space:nowrap}
   .menu .sub a.on,.menu .sub a:hover{background:var(--soft);color:var(--accent)}
   /* MEMBERS SUB-TABS */
-  .subtabs{position:sticky;top:76px;z-index:50;background:#fff;border-bottom:1px solid var(--line)}
+  .subtabs{position:sticky;top:76px;z-index:50;background:var(--card);border-bottom:1px solid var(--line)}
   .subtabs .in{max-width:1080px;margin:0 auto;padding:0 28px;display:flex;gap:4px}
   .subtabs a{padding:15px 20px;font-weight:700;font-size:.92rem;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-1px;transition:.2s}
   .subtabs a:hover{color:var(--navy)}
@@ -68,7 +68,7 @@
   .pcard .nm{font-weight:800;font-size:1.5rem;color:var(--navy)}
   .pcard .en{color:var(--muted);font-size:.9rem;margin-bottom:16px}
   .pcard .info{text-align:left;border-top:1px solid var(--line);padding-top:16px;margin-top:4px}
-  .pcard .info .row{display:flex;gap:10px;font-size:.85rem;margin-bottom:10px;color:#44505f}
+  .pcard .info .row{display:flex;gap:10px;font-size:.85rem;margin-bottom:10px;color:var(--ink3)}
   .pcard .info .row b{color:var(--navy);min-width:54px;font-weight:600}
   .pcard .info .row a{color:var(--accent);word-break:break-all}
   .pcard .btn{width:100%;justify-content:center;margin-top:8px}
@@ -81,7 +81,7 @@
   .tl{border-left:2px solid var(--line);margin-left:15px;padding-left:26px}
   .tl .it{position:relative;padding-bottom:22px}
   .tl .it:last-child{padding-bottom:0}
-  .tl .it::before{content:"";position:absolute;left:-33px;top:5px;width:11px;height:11px;border-radius:50%;background:#fff;border:2.5px solid var(--accent)}
+  .tl .it::before{content:"";position:absolute;left:-33px;top:5px;width:11px;height:11px;border-radius:50%;background:var(--card);border:2.5px solid var(--accent)}
   .tl .it.cur::before{background:var(--accent)}
   .tl .yr{font-weight:700;color:var(--accent);font-size:.82rem;letter-spacing:.02em}
   .tl .ti{font-weight:700;color:var(--navy);font-size:1.02rem;margin:2px 0}
@@ -110,13 +110,13 @@
   .pub .p .t b{font-weight:600;color:var(--ink)}
   .pub .p .s{color:var(--muted);font-size:.82rem;margin-top:2px}.pub .p .s .y{color:var(--accent);font-weight:600}
 
-  footer{background:var(--navy);color:#b9c6dc}
+  footer{background:var(--navy-bg);color:#b9c6dc}
   .fbot{padding:26px 0;font-size:.8rem}
   .fbot .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;color:#8194b0;max-width:1180px}
   .fbot a{color:#aebdd4}.fbot a:hover{color:#fff}
 
   @media(max-width:900px){
-    .menu{display:none;position:absolute;top:100%;right:14px;background:#fff;border:1px solid var(--line);border-radius:12px;flex-direction:column;padding:10px 14px;box-shadow:0 18px 44px rgba(19,41,75,.14);gap:4px}
+    .menu{display:none;position:absolute;top:100%;right:14px;background:var(--card);border:1px solid var(--line);border-radius:12px;flex-direction:column;padding:10px 14px;box-shadow:0 18px 44px rgba(19,41,75,.14);gap:4px}
     .burger{display:flex}.topbar{display:none}
     .menu .sub{position:static;opacity:1;visibility:visible;transform:none;box-shadow:none;border:0;padding:0 0 0 14px;min-width:0}
     .subtabs{top:0}.subtabs .in{overflow-x:auto}
@@ -130,6 +130,8 @@
   .topbar .uni b{color:#eaf1fb;font-weight:700;font-size:.78rem}
   .topbar .links a{color:#cdd8ea;opacity:.85}.topbar .links a:hover{opacity:1}
 </style>
+<link rel="stylesheet" href="assets/css/site-ui.css">
+<script>(function(){try{var d=document.documentElement,t=localStorage.getItem("dslab-theme");if(t==="dark")d.setAttribute("data-theme","dark");var l=localStorage.getItem("dslab-lang");if(l==="en"){d.setAttribute("lang","en");d.setAttribute("data-lang","en")}else{d.setAttribute("data-lang","ko")}}catch(e){}})();</script>
 </head>
 <body>
 
@@ -192,7 +194,7 @@
   <main class="cv">
     <div class="block">
       <h2>About</h2>
-      <p style="margin:8px 0 0 15px;color:#44505f">명지대학교 산업경영공학과 교수이자 반도체공학과 겸소속 교수로, 데이터사이언스 연구실(Data Science Lab)을 이끌고 있습니다. 데이터 마이닝과 머신러닝, 그래프 신경망, 추천 시스템, 계량서지학을 중심으로 데이터에 내재된 가치를 발굴하여 산업과 사회의 실질적 문제를 해결하는 연구를 수행하고 있습니다.</p>
+      <p style="margin:8px 0 0 15px;color:var(--ink3)">명지대학교 산업경영공학과 교수이자 반도체공학과 겸소속 교수로, 데이터사이언스 연구실(Data Science Lab)을 이끌고 있습니다. 데이터 마이닝과 머신러닝, 그래프 신경망, 추천 시스템, 계량서지학을 중심으로 데이터에 내재된 가치를 발굴하여 산업과 사회의 실질적 문제를 해결하는 연구를 수행하고 있습니다.</p>
     </div>
 
     <div class="block">
@@ -263,5 +265,7 @@
   <span><a href="index.html">Home</a> · ftgog@mju.ac.kr · +82-31-330-6449</span>
 </div></div></footer>
 
+<script src="assets/js/i18n-ko-en.js"></script>
+<script src="assets/js/site-ui.js"></script>
 </body>
 </html>
