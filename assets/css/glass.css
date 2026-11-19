@@ -64,8 +64,8 @@
      so nothing reads as a pastel wash. */
   --lg-sky:
     radial-gradient(1200px 780px at 4% -14%, #FFFFFF 0%, rgba(255,255,255,0) 58%),
-    radial-gradient(1000px 760px at 98% -6%, rgba(203,220,242,.55) 0%, rgba(203,220,242,0) 60%),
-    radial-gradient(1100px 820px at 88% 104%, rgba(212,226,244,.42) 0%, rgba(212,226,244,0) 62%),
+    radial-gradient(1000px 760px at 98% -6%, rgba(203,220,242,.42) 0%, rgba(203,220,242,0) 60%),
+    radial-gradient(1100px 820px at 88% 104%, rgba(212,226,244,.30) 0%, rgba(212,226,244,0) 62%),
     linear-gradient(180deg, #FCFDFF 0%, #F5F8FC 42%, #EFF3F9 100%);
 }
 
@@ -592,6 +592,16 @@ header[data-sc="over"]:not(.scrolled){
   backdrop-filter: none;
 }
 header[data-sc="over"]:not(.scrolled) nav{border-color:transparent; background:transparent; box-shadow:none;}
+/* a scrim that fades out inside the bar: it darkens only the strip the labels
+   sit in, so a bright sky cannot swallow them and no edge is visible */
+header[data-sc="over"]:not(.scrolled)::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background: linear-gradient(180deg, rgba(6,14,27,.42) 0%, rgba(6,14,27,.24) 58%, rgba(6,14,27,0) 100%);
+}
 /* the labels sit straight on the photo: a tight halo follows the glyphs so they
    stay legible on a bright sky, without any box behind the text */
 header[data-sc="over"]:not(.scrolled) nav a,
@@ -753,9 +763,9 @@ section.phero > .wrap{ padding: 54px 28px 50px; }
 
 .phero{
   background:
-    radial-gradient(90vw 70vw at 88% -30%, rgba(122,176,255,.26) 0%, rgba(122,176,255,0) 62%),
-    radial-gradient(70vw 60vw at 2% 130%, rgba(64,118,200,.24) 0%, rgba(64,118,200,0) 64%),
-    linear-gradient(135deg, #12294B 0%, #1A3C6F 58%, #1F4E8E 100%);
+    radial-gradient(90vw 70vw at 88% -30%, rgba(122,176,255,.17) 0%, rgba(122,176,255,0) 60%),
+    radial-gradient(70vw 60vw at 2% 130%, rgba(64,118,200,.20) 0%, rgba(64,118,200,0) 64%),
+    linear-gradient(135deg, #12294B 0%, #173A6A 58%, #1B4478 100%);
   box-shadow: inset 0 -1px 0 rgba(255,255,255,.14);
 }
 .phero::before{ opacity:.32; }
