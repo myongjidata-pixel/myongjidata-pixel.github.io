@@ -13,6 +13,7 @@
   var D = document, R = D.documentElement;
   var THEME_KEY = 'dslab-theme', LANG_KEY = 'dslab-lang';
   var DICT = window.DSLAB_I18N || {};
+  var PATTERNS = window.DSLAB_I18N_PATTERNS || [];
   var ATTRS = ['alt', 'placeholder', 'title', 'aria-label', 'content'];
   var SKIP = { SCRIPT: 1, STYLE: 1, NOSCRIPT: 1, TEXTAREA: 1, CODE: 1, PRE: 1 };
   var HANGUL = /[\u3131-\u318E\uAC00-\uD7A3]/;
@@ -47,10 +48,31 @@
     for (var i = 0; i < all.length; i++) fn(all[i]);
   }
 
+  /* exact match, then 'A · B' composites, then numeric patterns such as "10장" */
+  function lookup(v) {
+    var key = norm(v);
+    if (N[key] != null) return N[key];
+    if (key.indexOf(' · ') > -1) {
+      var parts = key.split(' · '), ok = true, out = [];
+      for (var i = 0; i < parts.length; i++) {
+        var p = parts[i];
+        if (!HANGUL.test(p)) { out.push(p); continue; }
+        var q = N[p];
+        if (q == null) { ok = false; break; }
+        out.push(q);
+      }
+      if (ok) return out.join(' · ');
+    }
+    for (var j = 0; j < PATTERNS.length; j++) {
+      if (PATTERNS[j][0].test(key)) return key.replace(PATTERNS[j][0], PATTERNS[j][1]);
+    }
+    return null;
+  }
+
   function translateText(node) {
     var v = node.nodeValue;
     if (!v || !HANGUL.test(v)) return;
-    var t = N[norm(v)];
+    var t = lookup(v);
     if (t == null) return;
     if (node.__ko === undefined) node.__ko = v;
     var lead = /^\s*/.exec(v)[0], trail = /\s*$/.exec(v)[0];
@@ -68,7 +90,7 @@
     for (var i = 0; i < ATTRS.length; i++) {
       var a = ATTRS[i], v = el.getAttribute && el.getAttribute(a);
       if (!v || !HANGUL.test(v)) continue;
-      var t = N[norm(v)];
+      var t = lookup(v);
       if (t == null) continue;
       if (!el.__koAttrs) el.__koAttrs = {};
       if (!el.__koAttrs[a]) el.__koAttrs[a] = v;
@@ -224,7 +246,8 @@
         }
       }
     });
-    if (D.body) mo.observe(D.body, { childList: true, subtree: true, characterData: true });
+    // observe the whole document: page scripts also rewrite <title> (news detail)
+    mo.observe(D.documentElement, { childList: true, subtree: true, characterData: true });
   }
 
   if (D.readyState === 'loading') D.addEventListener('DOMContentLoaded', init);

@@ -89,6 +89,32 @@ git push -u origin main
 메인의 "Selected Papers" 는 대표 논문 위주입니다. 전체 목록(국제 34편·국내 19편)을 넣거나
 별도 Publications 페이지를 원하시면 요청해 주세요.
 
+### 6) 다크 모드 · 한국어/영어 토글
+모든 페이지 우측 상단에 **KR | EN** 과 해/달 아이콘이 있습니다. 두 선택은 브라우저(`localStorage`)에 저장되어
+페이지를 옮겨도 유지되고, 첫 화면이 그려지기 전에 적용됩니다.
+
+| 파일 | 역할 |
+| --- | --- |
+| `assets/css/site-ui.css` | 토글 버튼 디자인, 다크 모드 색상표(`html[data-theme="dark"]`) |
+| `assets/js/site-ui.js` | 테마/언어 적용, 버튼 생성, 문구 치환 |
+| `assets/js/i18n-ko-en.js` | 한국어 → English 문구 사전 |
+
+- **색 바꾸기**: 각 페이지 `<style>` 의 색은 `--bg`, `--card`, `--navy`, `--navy-bg`, `--ink`, `--line` 같은 변수로 되어 있습니다.
+  라이트 값은 `:root`(페이지 안), 다크 값은 `site-ui.css` 의 `html[data-theme="dark"]` 블록에서 한 번만 고치면 전체에 반영됩니다.
+- **영문 문구 추가/수정**: `i18n-ko-en.js` 에서 `"한국어 원문": "English text"` 를 넣거나 고치면 됩니다.
+  한국어는 페이지에 보이는 그대로(공백·문장부호 포함) 적어야 합니다. 사전에 없는 문구는 한국어 그대로 표시됩니다.
+- 새 페이지를 만들 때는 `<head>` 끝에 아래 두 줄을, `</body>` 앞에 스크립트 두 줄을 넣으면 토글이 함께 동작합니다.
+
+```html
+<link rel="stylesheet" href="assets/css/site-ui.css">
+<script>(function(){try{var d=document.documentElement,t=localStorage.getItem("dslab-theme");if(t==="dark")d.setAttribute("data-theme","dark");var l=localStorage.getItem("dslab-lang");if(l==="en"){d.setAttribute("lang","en");d.setAttribute("data-lang","en")}else{d.setAttribute("data-lang","ko")}}catch(e){}})();</script>
+```
+
+```html
+<script src="assets/js/i18n-ko-en.js"></script>
+<script src="assets/js/site-ui.js"></script>
+```
+
 ---
 
 ## 나중에 커스텀 도메인 연결
