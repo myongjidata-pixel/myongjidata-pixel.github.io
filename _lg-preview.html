@@ -2,16 +2,39 @@
 <html lang="ko"><head>
 <meta charset="UTF-8"><meta name="robots" content="noindex">
 <title>LG preview</title>
+<script>try{localStorage.setItem('dslab-theme','light');localStorage.setItem('dslab-lang','ko')}catch(e){}</script>
 <style>
-  body{margin:0;background:#20242b;font-family:system-ui;color:#dfe6f2;display:flex;gap:18px;padding:18px;align-items:flex-start}
+  body{margin:0;background:#20242b;font-family:system-ui;color:#dfe6f2;padding:14px}
+  .row{display:flex;gap:16px;align-items:flex-start;margin-bottom:16px}
   figure{margin:0}
-  figcaption{font:600 12px/1.6 system-ui;padding:4px 2px;opacity:.8}
-  iframe{width:390px;height:780px;border:0;border-radius:10px;background:#fff;display:block}
-  iframe.wide{width:768px;height:780px}
+  figcaption{font:600 12px/1.8 system-ui;padding:2px;opacity:.85}
+  iframe{border:0;border-radius:10px;background:#fff;display:block;height:1500px}
+  .w390{width:390px}.w768{width:768px}
+  .badge{font:700 12px/1.4 system-ui;padding:3px 8px;border-radius:6px;background:#1e7a4d;color:#fff;display:inline-block;margin-left:6px}
+  .badge.bad{background:#b32d2d}
 </style></head>
 <body>
-<figure><figcaption>390 · 홈</figcaption><iframe src="/index.html"></iframe></figure>
-<figure><figcaption>390 · 구성원</figcaption><iframe src="/students.html"></iframe></figure>
-<figure><figcaption>768 · 홈</figcaption><iframe class="wide" src="/index.html"></iframe></figure>
-<figure><figcaption>768 · 논문</figcaption><iframe class="wide" src="/publications.html"></iframe></figure>
+<div class="row">
+  <figure><figcaption>390 · 홈 <span id="b1" class="badge">…</span></figcaption><iframe class="w390" data-k="b1" src="/index.html"></iframe></figure>
+  <figure><figcaption>390 · 구성원 <span id="b2" class="badge">…</span></figcaption><iframe class="w390" data-k="b2" src="/students.html"></iframe></figure>
+  <figure><figcaption>390 · 논문 <span id="b3" class="badge">…</span></figcaption><iframe class="w390" data-k="b3" src="/publications.html"></iframe></figure>
+</div>
+<div class="row">
+  <figure><figcaption>768 · 홈 <span id="b4" class="badge">…</span></figcaption><iframe class="w768" data-k="b4" src="/index.html"></iframe></figure>
+  <figure><figcaption>768 · 세미나 <span id="b5" class="badge">…</span></figcaption><iframe class="w768" data-k="b5" src="/lab-seminar.html"></iframe></figure>
+</div>
+<script>
+  function check(){
+    document.querySelectorAll('iframe[data-k]').forEach(function(f){
+      var el=document.getElementById(f.dataset.k);
+      try{
+        var d=f.contentDocument.documentElement;
+        var over=d.scrollWidth-d.clientWidth;
+        el.textContent = over>1 ? ('가로 오버플로 +'+over+'px') : '오버플로 없음';
+        el.className='badge'+(over>1?' bad':'');
+      }catch(e){el.textContent='?';}
+    });
+  }
+  [1200,3000,5000].forEach(function(t){setTimeout(check,t)});
+</script>
 </body></html>
