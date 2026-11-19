@@ -262,6 +262,7 @@ html[data-theme="dark"] .acard .cv{
 /* chart / diagram panels inside research cards */
 .rcard .fig, .rfig{
   background-color: rgba(255,255,255,.32);
+  background-image: none;
   box-shadow: inset 0 1px 0 rgba(255,255,255,.65);
 }
 html[data-theme="dark"] .rcard .fig,
@@ -517,15 +518,22 @@ html[data-theme="dark"] .menu .sub a:hover{ background-color: rgba(255,255,255,.
   header.scrolled nav{ padding-left:16px; padding-right:8px; }
 }
 
-/* sticky sub-tabs (Members pages) */
+/* sticky sub-tabs (Members pages): a full-width glass shelf, not a floating box */
 .subtabs{
+  width:100%;
+  max-width:none;
+  margin:0;
+  padding:0;
+  display:block;
+  height:auto;
   background-color: rgba(255,255,255,.58);
   background-image: var(--lg-sheen);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid var(--lg-edge);
-  box-shadow: 0 10px 26px -24px rgba(19,41,75,.6);
+  box-shadow: 0 12px 30px -30px rgba(19,41,75,.75);
 }
+.subtabs .in{ display:flex; }
 html[data-theme="dark"] .subtabs{
   background-color: rgba(12,21,34,.72);
   border-bottom-color: rgba(255,255,255,.08);
@@ -596,6 +604,17 @@ header[data-sc="over"]:not(.scrolled) .sc-theme{
   box-shadow: inset 0 -1px 0 rgba(255,255,255,.14);
 }
 .phero::before{ opacity:.32; }
+/* a soft specular sweep so the band reads as a sheet of glass, not a flat block */
+.phero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(112deg, rgba(255,255,255,0) 24%, rgba(255,255,255,.10) 40%, rgba(255,255,255,.02) 54%, rgba(255,255,255,0) 68%),
+    radial-gradient(80% 130% at 92% 118%, rgba(255,255,255,.16) 0%, rgba(255,255,255,0) 58%);
+}
+.phero .wrap{ position:relative; z-index:1; }
 html[data-theme="dark"] .phero{
   background:
     radial-gradient(90vw 70vw at 88% -30%, rgba(58,110,190,.30) 0%, rgba(58,110,190,0) 62%),
