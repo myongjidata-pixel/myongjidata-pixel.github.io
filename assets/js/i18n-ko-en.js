@@ -166,6 +166,7 @@ window.DSLAB_I18N = {
   "김호중 학생이 2026 명지대학교 학위수여식에서": "At the 2026 Myongji University Commencement, Hojoong Kim received ",
   "김호중 학생이 2026 명지대학교 학위수여식에서 공로상 금상을 수상하였습니다.": "Hojoong Kim received the Gold Medal of Merit at the 2026 Myongji University Commencement.",
   "김호중 학생이 데이터사이언스 연구실(DSLAB)에 학부연구생으로 새롭게 참여하게 되었습니다. 진심으로 환영합니다.": "Hojoong Kim has joined the Data Science Lab (DSLAB) as an undergraduate research intern. A warm welcome!",
+  "김호중, 안재국, 김무진, 박준수 학생이 2026년 추계 대학(원)생 품질경영 아이디어 경진대회에서": "At the 2026 Fall College & Graduate Student Quality Management Idea Competition, Hojoong Kim, Jaeguk An, Moojin Kim and Junsu Park won ",
   "김호중, 안재국, 김무진, 박준수 학생이 2026년 추계 대학(원)생 품질경영 아이디어 경진대회에서 우수상을 수상하였습니다.": "Hojoong Kim, Jaeguk An, Moojin Kim and Junsu Park received the Excellence Award at the 2026 Fall College & Graduate Student Quality Management Idea Competition.",
   "김호중·안재국 학생이 AI 분야 IC-PBL+ 경진대회에서": "At the IC-PBL+ Competition in AI, Hojoong Kim and Jaeguk An won ",
   "김호중·안재국 학생이 AI 분야 IC-PBL+ 경진대회에서 최우수상을 수상하였습니다.": "Hojoong Kim and Jaeguk An received the Grand Prize at the IC-PBL+ Competition in AI.",
