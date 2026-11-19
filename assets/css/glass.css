@@ -534,6 +534,8 @@ html[data-theme="dark"] .menu .sub a:hover{ background-color: rgba(255,255,255,.
   box-shadow: 0 12px 30px -30px rgba(19,41,75,.75);
 }
 .subtabs .in{ display:flex; }
+.subtabs .in{ overflow-x:auto; scrollbar-width:none; -ms-overflow-style:none; }
+.subtabs .in::-webkit-scrollbar{ display:none; }
 html[data-theme="dark"] .subtabs{
   background-color: rgba(12,21,34,.72);
   border-bottom-color: rgba(255,255,255,.08);
@@ -596,6 +598,10 @@ header[data-sc="over"]:not(.scrolled) .sc-theme{
 .newspanel .nrow:hover{ background: rgba(255,255,255,.05); }
 
 /* ---------- 13. page hero (sub pages) ----------------------------------- */
+/* the band carries its own padding, so it no longer inherits section padding */
+section.phero{ padding: 0; }
+section.phero > .wrap{ padding: 54px 28px 50px; }
+
 .phero{
   background:
     radial-gradient(90vw 70vw at 88% -30%, rgba(122,176,255,.38) 0%, rgba(122,176,255,0) 62%),
@@ -626,7 +632,7 @@ html[data-theme="dark"] .phero{
 
 /* ---------- 14. stats band, footer -------------------------------------- */
 .stats{
-  background: var(--lg-deep);
+  background: linear-gradient(150deg, rgba(21,45,84,.86) 0%, rgba(27,56,102,.78) 58%, rgba(17,36,66,.88) 100%);
   -webkit-backdrop-filter: blur(20px) saturate(165%);
   backdrop-filter: blur(20px) saturate(165%);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.14), inset 0 -1px 0 rgba(255,255,255,.10);
@@ -649,7 +655,7 @@ html[data-theme="dark"] footer{
 
 /* ---------- 15. album lightbox ----------------------------------------- */
 .lb{
-  background: rgba(5,12,24,.55);
+  background: rgba(5,12,24,.72);
   -webkit-backdrop-filter: blur(30px) saturate(160%);
   backdrop-filter: blur(30px) saturate(160%);
 }
@@ -729,6 +735,7 @@ html[data-theme="dark"] .mlabel .t{ text-shadow: 0 1px 2px rgba(0,0,0,.5); }
 /* ---------- 18. responsive repairs ------------------------------------- */
 @media(max-width:980px){
   .ndetail{ padding: 30px 26px 24px; border-radius: 20px; }
+  section.phero > .wrap{ padding: 44px 28px 40px; }
   header.scrolled nav{ height: 60px; margin: 6px auto; }
 }
 @media(max-width:560px){
@@ -736,6 +743,7 @@ html[data-theme="dark"] .mlabel .t{ text-shadow: 0 1px 2px rgba(0,0,0,.5); }
   .newspanel{ padding: 20px 18px 10px; border-radius: 20px; }
   .phero h1{ font-size: clamp(1.8rem, 8vw, 2.4rem); }
   body.page-404 > div:not(.sc-tools){ padding: 40px 30px 34px; border-radius: 26px; }
+  section.phero > .wrap{ padding: 36px 24px 34px; }
   header.scrolled nav{ padding-left: 14px; padding-right: 6px; }
   .tlcard{ padding: 12px; border-radius: 14px; }
 }
