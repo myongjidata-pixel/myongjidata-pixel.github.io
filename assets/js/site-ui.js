@@ -185,15 +185,13 @@
     var ds = D.querySelectorAll('.sc-theme');
     for (var j = 0; j < ds.length; j++) {
       var dark = currentTheme() === 'dark';
-      ds[j].setAttribute('aria-label', dark ? '라이트 모드로 전환' : '다크 모드로 전환');
-      ds[j].setAttribute('title', dark ? 'Light mode' : 'Dark mode');
+      var label = lang === 'en'
+        ? (dark ? 'Switch to light mode' : 'Switch to dark mode')
+        : (dark ? '라이트 모드로 전환' : '다크 모드로 전환');
+      var tip = lang === 'en' ? (dark ? 'Light mode' : 'Dark mode') : (dark ? '라이트 모드' : '다크 모드');
+      ds[j].setAttribute('aria-label', label);
+      ds[j].setAttribute('title', tip);
       ds[j].setAttribute('aria-pressed', dark ? 'true' : 'false');
-    }
-    // keep the label in the page language
-    if (lang === 'en') {
-      for (var k = 0; k < ds.length; k++) {
-        ds[k].setAttribute('aria-label', currentTheme() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
-      }
     }
   }
 
