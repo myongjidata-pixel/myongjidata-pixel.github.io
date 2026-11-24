@@ -63,9 +63,11 @@ html[data-theme="dark"] header.scrolled .burger span{background:var(--ink)}
 html[data-theme="dark"] .btn.solid{background:#E9F0FA;color:#13294B;border-color:#E9F0FA}
 html[data-theme="dark"] .btn.solid:hover{background:#fff;color:#13294B}
 
-/* the logo drawings are navy line art: lift them to white on dark ground */
+/* the logo drawings keep their original colours in dark mode as well: the navy
+   fill and the white inner strokes are both part of the drawing, so inverting it
+   to white (brightness(0) invert(1)) flattened the monogram into a white blob */
 html[data-theme="dark"] .brand img,
-html[data-theme="dark"] .about .lg img{filter:brightness(0) invert(1);opacity:.94}
+html[data-theme="dark"] .about .lg img{filter:none;opacity:1}
 
 /* English mode: drop the Korean duplicates that sit beside the English text */
 html[data-lang="en"] .phero h1 span{display:none}
